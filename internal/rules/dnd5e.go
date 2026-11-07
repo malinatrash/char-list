@@ -7,7 +7,10 @@ import (
 	"strings"
 
 	"char-list/internal/dice"
+	"char-list/internal/embed"
 )
+
+var d5 = embed.DnD5e()
 
 type Char5e struct {
 	Name       string         `json:"name"`
@@ -72,36 +75,36 @@ func (DnD5e) Data() any {
 	return map[string]any{
 		"abilities":   abilities,
 		"abilityRu":   abilityRu,
-		"skills":      skills5e,
-		"races":       races5e,
-		"classes":     classes5e,
-		"backgrounds": backgrounds5e,
-		"alignments":  alignments5e,
+		"skills":      d5.Skills,
+		"races":       d5.Races,
+		"classes":     d5.Classes,
+		"backgrounds": d5.Backgrounds,
+		"alignments":  d5.Alignments,
 	}
 }
 
-func race5eByName(n string) *race5e {
-	for i := range races5e {
-		if races5e[i].Name == n {
-			return &races5e[i]
+func race5eByName(n string) *embed.Race5e {
+	for i := range d5.Races {
+		if d5.Races[i].Name == n {
+			return &d5.Races[i]
 		}
 	}
 	return nil
 }
 
-func class5eByName(n string) *class5e {
-	for i := range classes5e {
-		if classes5e[i].Name == n {
-			return &classes5e[i]
+func class5eByName(n string) *embed.Class5e {
+	for i := range d5.Classes {
+		if d5.Classes[i].Name == n {
+			return &d5.Classes[i]
 		}
 	}
 	return nil
 }
 
-func background5eByName(n string) *background5e {
-	for i := range backgrounds5e {
-		if backgrounds5e[i].Name == n {
-			return &backgrounds5e[i]
+func background5eByName(n string) *embed.Background5e {
+	for i := range d5.Backgrounds {
+		if d5.Backgrounds[i].Name == n {
+			return &d5.Backgrounds[i]
 		}
 	}
 	return nil
@@ -133,7 +136,7 @@ func genName(syl []string) string {
 	return strings.ToUpper(string(r[0])) + string(r[1:])
 }
 
-func (e DnD5e) Random(raw json.RawMessage, fields []string) (any, []dice.Log, error) {
+func (e DnD5e) Random(raw json.RawMessage, fields []string, method string) (any, []dice.Log, error) {
 	c := Char5e{Level: 1, Scores: map[string]int{}}
 	if len(raw) > 0 {
 		if err := json.Unmarshal(raw, &c); err != nil {
@@ -144,68 +147,93 @@ func (e DnD5e) Random(raw json.RawMessage, fields []string) (any, []dice.Log, er
 	if c.Level < 1 {
 		c.Level = 1
 	}
-	if has(fields, "race") || race5eByName(c.Race) == nil {
-		c.Race = dice.Pick(races5e).Name
+	if has(fields, "race") || c.Race == "" {
+		c.Race = dice.Pick(d5.Races).Name
 	}
-	if has(fields, "class") || class5eByName(c.Class) == nil {
-		c.Class = dice.Pick(classes5e).Name
+	if has(fields, "class") || c.Class == "" {
+		c.Class = dice.Pick(d5.Classes).Name
 	}
-	if has(fields, "background") || background5eByName(c.Background) == nil {
-		c.Background = dice.Pick(backgrounds5e).Name
+	if has(fields, "background") || c.Background == "" {
+		c.Background = dice.Pick(d5.Backgrounds).Name
 	}
 	if has(fields, "alignment") {
-		c.Alignment = dice.Pick(alignments5e)
+		c.Alignment = dice.Pick(d5.Alignments)
 	}
+	r := race5eByName(c.Race)
+	cl := class5eByName(c.Class)
+	bg := background5eByName(c.Background)
 	if has(fields, "name") {
-		c.Name = genName(race5eByName(c.Race).Syllables)
+		syl := d5.Races[0].Syllables
+		if r != nil {
+			syl = r.Syllables
+		}
+		c.Name = genName(syl)
 	}
 	if has(fields, "scores") {
 		c.Scores, logs = rollStats5e()
 	}
-	cl := class5eByName(c.Class)
-	bg := background5eByName(c.Background)
 	if has(fields, "skills") {
-		c.Skills = append([]string{}, bg.Skills...)
-		pool := []string{}
-		for _, k := range cl.SkillPool {
-			if !contains(c.Skills, k) {
-				pool = append(pool, k)
-			}
+		c.Skills = nil
+		if bg != nil {
+			c.Skills = append(c.Skills, bg.Skills...)
 		}
-		c.Skills = append(c.Skills, dice.PickN(pool, cl.SkillCount)...)
+		if cl != nil {
+			pool := []string{}
+			for _, k := range cl.SkillPool {
+				if !contains(c.Skills, k) {
+					pool = append(pool, k)
+				}
+			}
+			c.Skills = append(c.Skills, dice.PickN(pool, cl.SkillCount)...)
+		}
 	}
 	if has(fields, "traits") {
-		c.Traits = dice.Pick(traits5e)
+		c.Traits = dice.Pick(d5.Traits)
 	}
 	if has(fields, "ideals") {
-		c.Ideals = dice.Pick(ideals5e)
+		c.Ideals = dice.Pick(d5.Ideals)
 	}
 	if has(fields, "bonds") {
-		c.Bonds = dice.Pick(bonds5e)
+		c.Bonds = dice.Pick(d5.Bonds)
 	}
 	if has(fields, "flaws") {
-		c.Flaws = dice.Pick(flaws5e)
+		c.Flaws = dice.Pick(d5.Flaws)
 	}
 	if has(fields, "languages") {
-		r := race5eByName(c.Race)
-		c.Languages = strings.Join(r.Languages, ", ")
-		if bg.Extra != "" {
+		c.Languages = "Общий"
+		if r != nil {
+			c.Languages = strings.Join(r.Languages, ", ")
+		}
+		if bg != nil && bg.Extra != "" {
 			c.Languages += "\n" + bg.Extra
 		}
 	}
 	if has(fields, "equipment") {
-		c.Equipment = strings.Join(append(append([]string{}, cl.Equipment...), bg.Equipment...), "\n")
+		var items []string
+		if cl != nil {
+			items = append(items, cl.Equipment...)
+		}
+		if bg != nil {
+			items = append(items, bg.Equipment...)
+		}
+		c.Equipment = strings.Join(items, "\n")
 	}
 	if has(fields, "features") {
-		r := race5eByName(c.Race)
-		lines := append([]string{}, r.Traits...)
-		lines = append(lines, cl.Features...)
-		lines = append(lines, "Предыстория: "+bg.Feature)
+		var lines []string
+		if r != nil {
+			lines = append(lines, r.Traits...)
+		}
+		if cl != nil {
+			lines = append(lines, cl.Features...)
+		}
+		if bg != nil {
+			lines = append(lines, "Предыстория: "+bg.Feature)
+		}
 		c.Features = strings.Join(lines, "\n")
 	}
 	if has(fields, "spells") {
 		c.Spells = ""
-		if cl.Caster != "" {
+		if cl != nil && cl.Caster != "" {
 			c.Spells = "Заговоры: " + strings.Join(dice.PickN(cl.Cantrips, cl.NCantrips), ", ") + "\n1 круг: " + strings.Join(dice.PickN(cl.Spells, cl.NSpells), ", ")
 		}
 	}
@@ -291,7 +319,7 @@ func (e DnD5e) derive(c Char5e) Derived5e {
 		d.AC = 10 + d.Mods["dex"]
 		d.MaxHP = 8 + d.Mods["con"]
 	}
-	for _, s := range skills5e {
+	for _, s := range d5.Skills {
 		b := d.Mods[s.Ability]
 		if contains(c.Skills, s.Key) {
 			b += d.Prof

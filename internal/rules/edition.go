@@ -14,7 +14,7 @@ type Edition interface {
 	Blurb() string
 	Method() string
 	Data() any
-	Random(raw json.RawMessage, fields []string) (any, []dice.Log, error)
+	Random(raw json.RawMessage, fields []string, method string) (any, []dice.Log, error)
 	Derive(raw json.RawMessage) (any, error)
 	PDF(raw json.RawMessage, w io.Writer) error
 }

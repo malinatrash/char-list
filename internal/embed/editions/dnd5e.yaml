@@ -1,0 +1,1069 @@
+alignments:
+    - Законно-добрый
+    - Нейтрально-добрый
+    - Хаотично-добрый
+    - Законно-нейтральный
+    - Нейтральный
+    - Хаотично-нейтральный
+    - Законно-злой
+    - Нейтрально-злой
+    - Хаотично-злой
+backgrounds:
+    - name: Аколит
+      skills:
+        - insight
+        - religion
+      extra: Два любых языка
+      equipment:
+        - Священный символ
+        - Молитвенник
+        - 5 палочек благовоний
+        - Одежда
+        - 15 зм
+      feature: Приют верующих
+    - name: Преступник
+      skills:
+        - deception
+        - stealth
+      extra: Воровские инструменты, игровой набор
+      equipment:
+        - Ломик
+        - Тёмная одежда с капюшоном
+        - 15 зм
+      feature: Преступные связи
+    - name: Народный герой
+      skills:
+        - animal
+        - survival
+      extra: Ремесленные инструменты, наземные средства передвижения
+      equipment:
+        - Ремесленные инструменты
+        - Лопата
+        - Железный горшок
+        - Одежда
+        - 10 зм
+      feature: Деревенское гостеприимство
+    - name: Благородный
+      skills:
+        - history
+        - persuasion
+      extra: Игровой набор, один язык
+      equipment:
+        - Дорогая одежда
+        - Перстень с печатью
+        - Свиток родословной
+        - 25 зм
+      feature: Положение в обществе
+    - name: Мудрец
+      skills:
+        - arcana
+        - history
+      extra: Два любых языка
+      equipment:
+        - Бутылочка чернил
+        - Перо
+        - Нож
+        - Письмо от коллеги
+        - Одежда
+        - 10 зм
+      feature: Исследователь
+    - name: Солдат
+      skills:
+        - athletics
+        - intimidation
+      extra: Игровой набор, наземные средства передвижения
+      equipment:
+        - Знак отличия
+        - Трофей с поверженного врага
+        - Кости
+        - Одежда
+        - 10 зм
+      feature: Военное звание
+    - name: Отшельник
+      skills:
+        - medicine
+        - religion
+      extra: Набор травника, один язык
+      equipment:
+        - Футляр для свитков
+        - Одеяло
+        - Одежда
+        - Набор травника
+        - 5 зм
+      feature: Открытие
+    - name: Артист
+      skills:
+        - acrobatics
+        - performance
+      extra: Набор для грима, музыкальный инструмент
+      equipment:
+        - Музыкальный инструмент
+        - Подарок поклонника
+        - Костюм
+        - 15 зм
+      feature: Популярность
+    - name: Чужеземец
+      skills:
+        - athletics
+        - survival
+      extra: Музыкальный инструмент, один язык
+      equipment:
+        - Посох
+        - Капкан
+        - Трофей с убитого животного
+        - Одежда путешественника
+        - 10 зм
+      feature: Странник
+    - name: Гильдейский ремесленник
+      skills:
+        - insight
+        - persuasion
+      extra: Ремесленные инструменты, один язык
+      equipment:
+        - Ремесленные инструменты
+        - Рекомендательное письмо гильдии
+        - Одежда путешественника
+        - 15 зм
+      feature: Членство в гильдии
+    - name: Моряк
+      skills:
+        - athletics
+        - perception
+      extra: Навигационные инструменты, водные средства передвижения
+      equipment:
+        - Дубинка
+        - 50 футов шёлковой верёвки
+        - Талисман
+        - Одежда
+        - 10 зм
+      feature: Проезд на корабле
+    - name: Шарлатан
+      skills:
+        - deception
+        - sleight
+      extra: Набор для грима, набор для фальсификации
+      equipment:
+        - Дорогая одежда
+        - Набор для грима
+        - Инструменты мошенника
+        - 15 зм
+      feature: Фальшивая личность
+    - name: Беспризорник
+      skills:
+        - sleight
+        - stealth
+      extra: Набор для грима, воровские инструменты
+      equipment:
+        - Небольшой нож
+        - Карта родного города
+        - Ручная мышь
+        - Памятная вещь родителей
+        - Одежда
+        - 10 зм
+      feature: Городские тайны
+bonds:
+    - Я отдам жизнь за своих товарищей по оружию.
+    - Меня ждёт долг, который я должен выплатить.
+    - Я ищу того, кто разрушил мою семью.
+    - Мой учитель погиб, и я должен завершить его дело.
+    - Где-то есть артефакт, который принадлежит мне по праву.
+    - Я защищаю родную деревню, даже когда далеко от неё.
+    - Моя честь — это моя жизнь.
+    - Я должен доказать, что достоин своего имени.
+classes:
+    - name: Бард
+      hitDie: 8
+      saves:
+        - dex
+        - cha
+      skillCount: 3
+      skillPool: [acrobatics, investigation, athletics, perception, survival, performance, intimidation, history, sleight, arcana, medicine, deception, nature, insight, religion, stealth, persuasion, animal]
+      armor: Кожаный доспех
+      armorAC: light11
+      weapons:
+        - name: Рапира
+          damage: 1к8 колющий
+          ranged: false
+          finesse: true
+        - name: Кинжал
+          damage: 1к4 колющий
+          ranged: false
+          finesse: true
+      equipment:
+        - Кожаный доспех
+        - Рапира
+        - Кинжал
+        - Лютня
+        - Набор артиста
+      features:
+        - Вдохновение барда (к6)
+        - Использование заклинаний
+      caster: cha
+      cantrips:
+        - Злая насмешка
+        - Малая иллюзия
+        - Фокусы
+        - Свет
+        - Дружба
+        - Пляшущие огоньки
+      spells:
+        - Лечение ран
+        - Очарование личности
+        - Обнаружение магии
+        - Волна грома
+        - Смех Таши
+        - Маскировка
+        - Усыпление
+        - Героизм
+      nCantrips: 2
+      nSpells: 4
+    - name: Варвар
+      hitDie: 12
+      saves:
+        - str
+        - con
+      skillCount: 2
+      skillPool:
+        - animal
+        - athletics
+        - intimidation
+        - nature
+        - perception
+        - survival
+      armor: Без доспеха
+      armorAC: barb
+      weapons:
+        - name: Секира
+          damage: 1к12 рубящий
+          ranged: false
+          finesse: false
+        - name: Ручной топор
+          damage: 1к6 рубящий
+          ranged: false
+          finesse: false
+        - name: Метательное копьё
+          damage: 1к6 колющий
+          ranged: false
+          finesse: false
+      equipment:
+        - Секира
+        - Два ручных топора
+        - Четыре метательных копья
+        - Набор путешественника
+      features:
+        - Ярость (2 раза, +2 к урону)
+        - Защита без доспехов (10 + Лов + Тел)
+      caster: ""
+      cantrips: []
+      spells: []
+      nCantrips: 0
+      nSpells: 0
+    - name: Воин
+      hitDie: 10
+      saves:
+        - str
+        - con
+      skillCount: 2
+      skillPool:
+        - acrobatics
+        - animal
+        - athletics
+        - history
+        - insight
+        - intimidation
+        - perception
+        - survival
+      armor: Кольчуга
+      armorAC: chain16
+      weapons:
+        - name: Длинный меч
+          damage: 1к8 рубящий
+          ranged: false
+          finesse: false
+        - name: Лёгкий арбалет
+          damage: 1к8 колющий
+          ranged: true
+          finesse: false
+      equipment:
+        - Кольчуга
+        - Длинный меч
+        - Щит
+        - Лёгкий арбалет и 20 болтов
+        - Набор исследователя подземелий
+      features:
+        - Боевой стиль (выбрать)
+        - Второе дыхание (1к10 + уровень)
+      caster: ""
+      cantrips: []
+      spells: []
+      nCantrips: 0
+      nSpells: 0
+    - name: Волшебник
+      hitDie: 6
+      saves:
+        - int
+        - wis
+      skillCount: 2
+      skillPool:
+        - arcana
+        - history
+        - insight
+        - investigation
+        - medicine
+        - religion
+      armor: Без доспеха
+      armorAC: none
+      weapons:
+        - name: Боевой посох
+          damage: 1к6 дробящий
+          ranged: false
+          finesse: false
+        - name: Кинжал
+          damage: 1к4 колющий
+          ranged: false
+          finesse: true
+      equipment:
+        - Боевой посох
+        - Кинжал
+        - Мешочек с компонентами
+        - Книга заклинаний
+        - Набор учёного
+      features:
+        - Использование заклинаний
+        - Магическое восстановление
+      caster: int
+      cantrips:
+        - Огненный снаряд
+        - Фокусы
+        - Свет
+        - Волшебная рука
+        - Луч холода
+        - Электрошок
+      spells:
+        - Волшебная стрела
+        - Щит
+        - Усыпление
+        - Обнаружение магии
+        - Доспехи мага
+        - Волна грома
+        - Очарование личности
+        - Туманное облако
+        - Понимание языков
+      nCantrips: 3
+      nSpells: 6
+    - name: Друид
+      hitDie: 8
+      saves:
+        - int
+        - wis
+      skillCount: 2
+      skillPool:
+        - arcana
+        - animal
+        - insight
+        - medicine
+        - nature
+        - perception
+        - religion
+        - survival
+      armor: Кожаный доспех
+      armorAC: light11
+      weapons:
+        - name: Скимитар
+          damage: 1к6 рубящий
+          ranged: false
+          finesse: true
+        - name: Деревянный щит
+          damage: —
+          ranged: false
+          finesse: false
+      equipment:
+        - Кожаный доспех
+        - Деревянный щит
+        - Скимитар
+        - Набор исследователя
+        - Друидический фокус
+      features:
+        - Друидический язык
+        - Использование заклинаний
+      caster: wis
+      cantrips:
+        - Друидизм
+        - Дубинка
+        - Сотворение пламени
+        - Указание
+      spells:
+        - Лечение ран
+        - Опутывание
+        - Дружба с животными
+        - Волна грома
+        - Доброе ягоды
+        - Туманное облако
+        - Разговор с животными
+      nCantrips: 2
+      nSpells: 3
+    - name: Жрец
+      hitDie: 8
+      saves:
+        - wis
+        - cha
+      skillCount: 2
+      skillPool:
+        - history
+        - insight
+        - medicine
+        - persuasion
+        - religion
+      armor: Чешуйчатый доспех
+      armorAC: scale14
+      weapons:
+        - name: Булава
+          damage: 1к6 дробящий
+          ranged: false
+          finesse: false
+        - name: Лёгкий арбалет
+          damage: 1к8 колющий
+          ranged: true
+          finesse: false
+      equipment:
+        - Чешуйчатый доспех
+        - Булава
+        - Щит
+        - Лёгкий арбалет и 20 болтов
+        - Священный символ
+        - Набор священника
+      features:
+        - Божественный домен (выбрать)
+        - Использование заклинаний
+      caster: wis
+      cantrips:
+        - Священное пламя
+        - Указание
+        - Сопротивление
+        - Свет
+        - Искусство
+        - Чудотворство
+      spells:
+        - Лечение ран
+        - Благословение
+        - Порча
+        - Направленный снаряд
+        - Щит веры
+        - Обнаружение зла и добра
+        - Убежище
+        - Очищение пищи и питья
+      nCantrips: 3
+      nSpells: 3
+    - name: Колдун
+      hitDie: 8
+      saves:
+        - wis
+        - cha
+      skillCount: 2
+      skillPool:
+        - arcana
+        - deception
+        - history
+        - intimidation
+        - investigation
+        - nature
+        - religion
+      armor: Кожаный доспех
+      armorAC: light11
+      weapons:
+        - name: Кинжал
+          damage: 1к4 колющий
+          ranged: false
+          finesse: true
+        - name: Лёгкий арбалет
+          damage: 1к8 колющий
+          ranged: true
+          finesse: false
+      equipment:
+        - Кожаный доспех
+        - Два кинжала
+        - Лёгкий арбалет и 20 болтов
+        - Мистический фокус
+        - Набор учёного
+      features:
+        - Потусторонний покровитель (выбрать)
+        - Магия договора
+      caster: cha
+      cantrips:
+        - Мистический заряд
+        - Фокусы
+        - Малая иллюзия
+        - Дружба
+        - Ядовитые брызги
+      spells:
+        - Адское возмездие
+        - Проклятие
+        - Доспехи Агатиса
+        - Очарование личности
+        - Ведьмин снаряд
+        - Защита от зла и добра
+      nCantrips: 2
+      nSpells: 2
+    - name: Монах
+      hitDie: 8
+      saves:
+        - str
+        - dex
+      skillCount: 2
+      skillPool:
+        - acrobatics
+        - athletics
+        - history
+        - insight
+        - religion
+        - stealth
+      armor: Без доспеха
+      armorAC: monk
+      weapons:
+        - name: Короткий меч
+          damage: 1к6 колющий
+          ranged: false
+          finesse: true
+        - name: Безоружный удар
+          damage: 1к4 дробящий
+          ranged: false
+          finesse: true
+        - name: Дротик
+          damage: 1к4 колющий
+          ranged: false
+          finesse: true
+      equipment:
+        - Короткий меч
+        - 10 дротиков
+        - Набор исследователя подземелий
+      features:
+        - Защита без доспехов (10 + Лов + Мдр)
+        - Боевые искусства (к4)
+      caster: ""
+      cantrips: []
+      spells: []
+      nCantrips: 0
+      nSpells: 0
+    - name: Паладин
+      hitDie: 10
+      saves:
+        - wis
+        - cha
+      skillCount: 2
+      skillPool:
+        - athletics
+        - insight
+        - intimidation
+        - medicine
+        - persuasion
+        - religion
+      armor: Кольчуга
+      armorAC: chain16
+      weapons:
+        - name: Длинный меч
+          damage: 1к8 рубящий
+          ranged: false
+          finesse: false
+        - name: Метательное копьё
+          damage: 1к6 колющий
+          ranged: false
+          finesse: false
+      equipment:
+        - Кольчуга
+        - Длинный меч
+        - Щит
+        - Пять метательных копий
+        - Священный символ
+        - Набор священника
+      features:
+        - Божественное чувство
+        - Наложение рук (5 хитов)
+      caster: ""
+      cantrips: []
+      spells: []
+      nCantrips: 0
+      nSpells: 0
+    - name: Плут
+      hitDie: 8
+      saves:
+        - dex
+        - int
+      skillCount: 4
+      skillPool:
+        - acrobatics
+        - athletics
+        - deception
+        - insight
+        - intimidation
+        - investigation
+        - perception
+        - performance
+        - persuasion
+        - sleight
+        - stealth
+      armor: Кожаный доспех
+      armorAC: light11
+      weapons:
+        - name: Рапира
+          damage: 1к8 колющий
+          ranged: false
+          finesse: true
+        - name: Короткий лук
+          damage: 1к6 колющий
+          ranged: true
+          finesse: false
+        - name: Кинжал
+          damage: 1к4 колющий
+          ranged: false
+          finesse: true
+      equipment:
+        - Кожаный доспех
+        - Рапира
+        - Короткий лук и колчан с 20 стрелами
+        - Два кинжала
+        - Воровские инструменты
+        - Набор взломщика
+      features:
+        - Компетентность (два навыка ×2)
+        - Скрытая атака 1к6
+        - Воровской жаргон
+      caster: ""
+      cantrips: []
+      spells: []
+      nCantrips: 0
+      nSpells: 0
+    - name: Следопыт
+      hitDie: 10
+      saves:
+        - str
+        - dex
+      skillCount: 3
+      skillPool:
+        - animal
+        - athletics
+        - insight
+        - investigation
+        - nature
+        - perception
+        - stealth
+        - survival
+      armor: Чешуйчатый доспех
+      armorAC: scale14
+      weapons:
+        - name: Длинный лук
+          damage: 1к8 колющий
+          ranged: true
+          finesse: false
+        - name: Короткий меч
+          damage: 1к6 колющий
+          ranged: false
+          finesse: true
+      equipment:
+        - Чешуйчатый доспех
+        - Два коротких меча
+        - Длинный лук и колчан с 20 стрелами
+        - Набор исследователя
+      features:
+        - Избранный враг (выбрать)
+        - Исследователь природы (выбрать местность)
+      caster: ""
+      cantrips: []
+      spells: []
+      nCantrips: 0
+      nSpells: 0
+    - name: Чародей
+      hitDie: 6
+      saves:
+        - con
+        - cha
+      skillCount: 2
+      skillPool:
+        - arcana
+        - deception
+        - insight
+        - intimidation
+        - persuasion
+        - religion
+      armor: Без доспеха
+      armorAC: none
+      weapons:
+        - name: Лёгкий арбалет
+          damage: 1к8 колющий
+          ranged: true
+          finesse: false
+        - name: Кинжал
+          damage: 1к4 колющий
+          ranged: false
+          finesse: true
+      equipment:
+        - Лёгкий арбалет и 20 болтов
+        - Два кинжала
+        - Магический фокус
+        - Набор исследователя подземелий
+      features:
+        - Происхождение чародея (выбрать)
+        - Использование заклинаний
+      caster: cha
+      cantrips:
+        - Огненный снаряд
+        - Фокусы
+        - Свет
+        - Волшебная рука
+        - Луч холода
+        - Электрошок
+        - Дружба
+      spells:
+        - Волшебная стрела
+        - Щит
+        - Усыпление
+        - Хроматический шар
+        - Обнаружение магии
+        - Волна грома
+        - Очарование личности
+      nCantrips: 4
+      nSpells: 2
+flaws:
+    - Я не доверяю никому, кроме себя.
+    - Выпивка и азарт тянут меня на дно.
+    - Я не могу устоять перед красивым лицом.
+    - Я слишком уверен в себе и часто лезу на рожон.
+    - Тайна, которую я храню, однажды погубит меня.
+    - Я презираю трусов и часто говорю об этом вслух.
+    - Я никогда не признаю своих ошибок.
+    - Ради золота я готов на многое.
+ideals:
+    - Свобода. Цепи предназначены для того, чтобы их разбивать. (Хаотичный)
+    - Традиция. Древние обычаи нужно хранить. (Законный)
+    - Милосердие. Я помогаю тем, кто не может помочь себе. (Добрый)
+    - Власть. Однажды я буду править. (Злой)
+    - Знание. Путь к силе лежит через понимание. (Нейтральный)
+    - Честь. Я никогда не нарушу данного слова. (Законный)
+    - Перемены. Мы должны помогать переменам, что несёт судьба. (Хаотичный)
+    - Величие. Меня будут помнить. (Любой)
+    - Народ. Я защищаю тех, с кем живу. (Нейтральный)
+races:
+    - name: Человек
+      bonus:
+        cha: 1
+        con: 1
+        dex: 1
+        int: 1
+        str: 1
+        wis: 1
+      speed: 30
+      languages:
+        - Общий
+        - любой один
+      traits:
+        - 'Универсальность: +1 ко всем характеристикам'
+      syllables:
+        - Ал
+        - Бер
+        - Гар
+        - Дан
+        - Эл
+        - Ив
+        - Кас
+        - Мар
+        - Ро
+        - Та
+        - ин
+        - ар
+        - ик
+        - он
+        - ель
+        - ис
+        - ан
+      flex: 0
+    - name: Эльф
+      bonus:
+        dex: 2
+      speed: 30
+      languages:
+        - Общий
+        - Эльфийский
+      traits:
+        - Тёмное зрение 60 фт
+        - 'Обострённые чувства: владение Внимательностью'
+        - 'Наследие фей: преимущество на спасброски от очарования, иммунитет к усыплению'
+        - 'Транс: 4 часа вместо сна'
+      syllables:
+        - Аэ
+        - Гал
+        - Ил
+        - Лаэ
+        - Тар
+        - Эри
+        - Фен
+        - Сил
+        - ион
+        - адриэль
+        - анис
+        - иэль
+        - ор
+        - уэн
+        - ас
+      flex: 0
+    - name: Дварф
+      bonus:
+        con: 2
+      speed: 25
+      languages:
+        - Общий
+        - Дварфийский
+      traits:
+        - Тёмное зрение 60 фт
+        - 'Дварфийская устойчивость: преимущество против яда, сопротивление урону ядом'
+        - Владение боевыми топорами, ручными топорами, лёгкими и боевыми молотами
+        - Знание камня
+      syllables:
+        - Тор
+        - Бал
+        - Дур
+        - Гим
+        - Брун
+        - Ор
+        - Кар
+        - Харг
+        - ин
+        - ак
+        - гар
+        - дин
+        - ли
+        - ур
+        - ок
+      flex: 0
+    - name: Полурослик
+      bonus:
+        dex: 2
+      speed: 25
+      languages:
+        - Общий
+        - Полуросликов
+      traits:
+        - 'Везучий: переброс 1 на к20'
+        - 'Храбрый: преимущество против испуга'
+        - 'Проворство полуросликов: можно проходить через пространство больших существ'
+      syllables:
+        - Бил
+        - Мер
+        - Пип
+        - Ро
+        - Сэм
+        - Фро
+        - Лил
+        - и
+        - бо
+        - до
+        - ри
+        - ин
+        - ка
+        - ли
+      flex: 0
+    - name: Гном
+      bonus:
+        int: 2
+      speed: 25
+      languages:
+        - Общий
+        - Гномий
+      traits:
+        - Тёмное зрение 60 фт
+        - 'Гномья хитрость: преимущество на спасброски Инт, Мдр, Хар от магии'
+      syllables:
+        - Ал
+        - Бод
+        - Дим
+        - Эл
+        - Фон
+        - Гим
+        - Зук
+        - Нис
+        - ли
+        - бл
+        - дон
+        - ин
+        - ик
+        - ел
+        - ус
+      flex: 0
+    - name: Полуэльф
+      bonus:
+        cha: 2
+      speed: 30
+      languages:
+        - Общий
+        - Эльфийский
+        - любой один
+      traits:
+        - Тёмное зрение 60 фт
+        - Наследие фей
+        - 'Универсальность: владение двумя навыками на выбор'
+      syllables:
+        - Ар
+        - Эл
+        - Кас
+        - Лир
+        - Мар
+        - Таэ
+        - Вен
+        - иан
+        - ис
+        - ель
+        - он
+        - ра
+        - ен
+      flex: 2
+    - name: Полуорк
+      bonus:
+        con: 1
+        str: 2
+      speed: 30
+      languages:
+        - Общий
+        - Орочий
+      traits:
+        - Тёмное зрение 60 фт
+        - 'Угрожающий: владение Запугиванием'
+        - 'Непоколебимая стойкость: раз в день вместо 0 хитов остаётся 1'
+        - 'Свирепые атаки: лишняя кость урона при крите'
+      syllables:
+        - Гор
+        - Кра
+        - Тор
+        - Ург
+        - Дре
+        - Хог
+        - Шам
+        - ак
+        - ог
+        - аш
+        - ук
+        - мог
+        - ар
+      flex: 0
+    - name: Тифлинг
+      bonus:
+        cha: 2
+        int: 1
+      speed: 30
+      languages:
+        - Общий
+        - Инфернальный
+      traits:
+        - Тёмное зрение 60 фт
+        - 'Адское сопротивление: сопротивление урону огнём'
+        - 'Дьявольское наследие: заговор чудотворство'
+      syllables:
+        - Ак
+        - Дам
+        - Ка
+        - Лер
+        - Мор
+        - Нем
+        - Сар
+        - ис
+        - ай
+        - рион
+        - ат
+        - ея
+        - ин
+        - ос
+      flex: 0
+    - name: Драконорождённый
+      bonus:
+        cha: 1
+        str: 2
+      speed: 30
+      languages:
+        - Общий
+        - Драконий
+      traits:
+        - Драконье наследие (выбрать цвет)
+        - Оружие дыхания 2к6, спасбросок КС 8 + мод Тел + БМ
+        - Сопротивление урону своего наследия
+      syllables:
+        - Ар
+        - Бал
+        - Дон
+        - Гар
+        - Кри
+        - Мед
+        - Нар
+        - Тор
+        - джан
+        - асар
+        - аш
+        - рах
+        - ин
+        - ун
+        - ил
+      flex: 0
+skills:
+    - key: acrobatics
+      name: Акробатика
+      ability: dex
+    - key: investigation
+      name: Анализ
+      ability: int
+    - key: athletics
+      name: Атлетика
+      ability: str
+    - key: perception
+      name: Внимательность
+      ability: wis
+    - key: survival
+      name: Выживание
+      ability: wis
+    - key: performance
+      name: Выступление
+      ability: cha
+    - key: intimidation
+      name: Запугивание
+      ability: cha
+    - key: history
+      name: История
+      ability: int
+    - key: sleight
+      name: Ловкость рук
+      ability: dex
+    - key: arcana
+      name: Магия
+      ability: int
+    - key: medicine
+      name: Медицина
+      ability: wis
+    - key: deception
+      name: Обман
+      ability: cha
+    - key: nature
+      name: Природа
+      ability: int
+    - key: insight
+      name: Проницательность
+      ability: wis
+    - key: religion
+      name: Религия
+      ability: int
+    - key: stealth
+      name: Скрытность
+      ability: dex
+    - key: persuasion
+      name: Убеждение
+      ability: cha
+    - key: animal
+      name: Уход за животными
+      ability: wis
+traits:
+    - Я всегда ищу повод для доброй драки.
+    - Я обожаю рассказывать истории о своих подвигах, приукрашивая их.
+    - Ничто не выведет меня из равновесия.
+    - Я говорю мало, но слушаю внимательно.
+    - Я сыплю цитатами из древних текстов, часто невпопад.
+    - Я сужу о людях по тому, как они обращаются со своим оружием.
+    - Я не могу удержаться, чтобы не взять что-нибудь блестящее.
+    - Мне неловко в обществе знати.
+    - Я легко завожу друзей, где бы ни оказался.
+    - Я всегда ем так, словно это мой последний ужин.
+    - Я предпочитаю решать всё по-своему и ненавижу приказы.
+    - Я собираю слухи, как другие собирают монеты.

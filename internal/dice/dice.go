@@ -11,6 +11,7 @@ type Log struct {
 	Sides   int    `json:"sides"`
 	Dice    []int  `json:"dice"`
 	Dropped []int  `json:"dropped,omitempty"`
+	Bonus   int    `json:"bonus,omitempty"`
 	Total   int    `json:"total"`
 }
 
@@ -61,6 +62,14 @@ func PickN[T any](xs []T, n int) []T {
 		out = append(out, xs[i])
 	}
 	return out
+}
+
+// RollPlus rolls n dice and adds a flat bonus.
+func RollPlus(label string, n, sides, bonus int) Log {
+	l := Roll(label, n, sides)
+	l.Bonus = bonus
+	l.Total += bonus
+	return l
 }
 
 func Chance(p float64) bool { return rand.Float64() < p }

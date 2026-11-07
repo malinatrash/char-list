@@ -48,7 +48,7 @@ func render5e(c Char5e, d Derived5e, w io.Writer) error {
 		}
 		doc.Text(113, y, 8, sign(d.Saves[a]))
 	}
-	for i, s := range skills5e {
+	for i, s := range d5.Skills {
 		y := 323.8 + float64(i)*13.5
 		if contains(c.Skills, s.Key) {
 			doc.Center(104.2, y-1.1, 7, "●")

@@ -2,23 +2,18 @@ package main
 
 import (
 	"bytes"
-	"embed"
 	"encoding/json"
 	"flag"
 	"fmt"
 	"html/template"
 	"io"
-	"io/fs"
 	"log"
 	"net/http"
 	"net/url"
 
+	"char-list/internal/embed"
 	"char-list/internal/rules"
-	"char-list/internal/sheet"
 )
-
-//go:embed assets web
-var files embed.FS
 
 var registry = rules.NewRegistry(rules.DnD5e{}, rules.Shadowdark{})
 
@@ -34,18 +29,16 @@ var tmpl = template.Must(template.New("").Funcs(template.FuncMap{
 		b, _ := json.Marshal(v)
 		return template.JS(b)
 	},
-}).ParseFS(files, "web/templates/*.html"))
+}).ParseFS(embed.Templates(), "*.html"))
 
 func main() {
 	addr := flag.String("addr", ":8080", "listen address")
 	music := flag.String("music", "music", "directory with background music served at /static/music/")
 	flag.Parse()
-	sheet.Assets = files
 
 	mux := http.NewServeMux()
-	static, _ := fs.Sub(files, "web/static")
 	mux.Handle("GET /static/music/", http.StripPrefix("/static/music/", http.FileServer(http.Dir(*music))))
-	mux.Handle("GET /static/", http.StripPrefix("/static/", http.FileServerFS(static)))
+	mux.Handle("GET /static/", http.StripPrefix("/static/", http.FileServerFS(embed.Static())))
 	mux.HandleFunc("GET /{$}", index)
 	mux.HandleFunc("GET /sheet/{ed}", sheetPage)
 	mux.HandleFunc("POST /api/{ed}/random", apiRandom)
@@ -84,6 +77,7 @@ func render(w http.ResponseWriter, name string, data any) {
 type randomReq struct {
 	Char   json.RawMessage `json:"char"`
 	Fields []string        `json:"fields"`
+	Method string          `json:"method"`
 }
 
 func apiRandom(w http.ResponseWriter, r *http.Request) {
@@ -97,7 +91,7 @@ func apiRandom(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, err.Error(), 400)
 		return
 	}
-	c, logs, err := ed.Random(req.Char, req.Fields)
+	c, logs, err := ed.Random(req.Char, req.Fields, req.Method)
 	if err != nil {
 		http.Error(w, err.Error(), 400)
 		return
@@ -138,7 +132,7 @@ func pdfRandom(w http.ResponseWriter, r *http.Request) {
 		http.NotFound(w, r)
 		return
 	}
-	c, _, err := ed.Random(nil, nil)
+	c, _, err := ed.Random(nil, nil, "")
 	if err != nil {
 		http.Error(w, err.Error(), 500)
 		return

@@ -43,8 +43,8 @@ window.App = (() => {
   }
   function deriveSoon() { clearTimeout(t); t = setTimeout(() => { save(); derive().catch(console.error); }, 250); }
 
-  async function random(fields, title) {
-    const res = await (await post(`/api/${ed}/random`, { char: collect(), fields })).json();
+  async function random(fields, title, method) {
+    const res = await (await post(`/api/${ed}/random`, { char: collect(), fields, method })).json();
     if (res.rolls && res.rolls.length) await Dice.show(res.rolls, title);
     apply(res.char);
     hooks.renderDerived(res.derived, res.char);
@@ -84,7 +84,7 @@ window.App = (() => {
   form.addEventListener('submit', e => e.preventDefault());
   form.querySelectorAll('[data-rnd]').forEach(b => b.addEventListener('click', () => {
     const fields = b.dataset.rnd.split(',');
-    api.random(fields, b.dataset.title || 'Бросок').catch(e => toast(e.message));
+    api.random(fields, b.dataset.title || 'Бросок', b.dataset.method).catch(e => toast(e.message));
   }));
   document.getElementById('rnd-all')?.addEventListener('click', () => api.random(null, 'Судьба решает всё').catch(e => toast(e.message)));
   document.getElementById('btn-print')?.addEventListener('click', () => pdf('print'));

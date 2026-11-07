@@ -16,11 +16,11 @@
     <h2>Кто ты</h2>
     <div class="field"><div><label>Имя</label><input type="text" data-field="name"></div><button class="rnd" type="button" data-rnd="name" data-title="Имя"><svg class="ico" aria-hidden="true"><use href="#i-dice"/></svg></button></div>
     <div class="row">
-      <div class="field"><div><label>Происхождение</label><select data-field="ancestry"><option value="">—</option>{{range .Data.ancestries}}<option>{{.Name}}</option>{{end}}</select></div><button class="rnd" type="button" data-rnd="ancestry,name,talents" data-title="Происхождение, к12"><svg class="ico" aria-hidden="true"><use href="#i-dice"/></svg></button></div>
-      <div class="field"><div><label>Класс</label><select data-field="class"><option value="">—</option>{{range .Data.classes}}<option>{{.Name}}</option>{{end}}</select></div><button class="rnd" type="button" data-rnd="class,title,talents,hp,gear" data-title="Класс, к4"><svg class="ico" aria-hidden="true"><use href="#i-dice"/></svg></button></div>
+      <div class="field"><div><label>Происхождение</label><input type="text" data-field="ancestry" list="dl-anc" placeholder="выбери или впиши своё"><datalist id="dl-anc">{{range .Data.ancestries}}<option value="{{.Name}}"></option>{{end}}</datalist></div><button class="rnd" type="button" data-rnd="ancestry,name,talents" data-title="Происхождение, к12"><svg class="ico" aria-hidden="true"><use href="#i-dice"/></svg></button></div>
+      <div class="field"><div><label>Класс</label><input type="text" data-field="class" list="dl-class" placeholder="выбери или впиши свой"><datalist id="dl-class">{{range .Data.classes}}<option value="{{.Name}}"></option>{{end}}</datalist></div><button class="rnd" type="button" data-rnd="class,title,talents,hp,gear" data-title="Класс, к4"><svg class="ico" aria-hidden="true"><use href="#i-dice"/></svg></button></div>
       <div class="field"><div><label>Мировоззрение</label><select data-field="alignment"><option value="">—</option>{{range .Data.alignments}}<option>{{.}}</option>{{end}}</select></div><button class="rnd" type="button" data-rnd="alignment,title" data-title="Мировоззрение, к6"><svg class="ico" aria-hidden="true"><use href="#i-dice"/></svg></button></div>
       <div class="field"><div><label>Титул</label><input type="text" data-field="title" placeholder="по классу и мировоззрению"></div><button class="rnd" type="button" data-rnd="title"><svg class="ico" aria-hidden="true"><use href="#i-dice"/></svg></button></div>
-      <div class="field"><div><label>Предыстория</label><select data-field="background"><option value="">—</option>{{range .Data.backgrounds}}<option>{{.}}</option>{{end}}</select></div><button class="rnd" type="button" data-rnd="background" data-title="Предыстория, к20"><svg class="ico" aria-hidden="true"><use href="#i-dice"/></svg></button></div>
+      <div class="field"><div><label>Предыстория</label><input type="text" data-field="background" list="dl-bg" placeholder="выбери или впиши свою"><datalist id="dl-bg">{{range .Data.backgrounds}}<option value="{{.}}"></option>{{end}}</datalist></div><button class="rnd" type="button" data-rnd="background" data-title="Предыстория, к20"><svg class="ico" aria-hidden="true"><use href="#i-dice"/></svg></button></div>
       <div class="field"><div><label>Божество</label><select data-field="deity"><option value="">—</option>{{range .Data.deities}}<option>{{.}}</option>{{end}}</select></div><button class="rnd" type="button" data-rnd="deity"><svg class="ico" aria-hidden="true"><use href="#i-dice"/></svg></button></div>
       <div class="row">
         <div class="field"><div><label>Уровень</label><input type="number" min="1" max="10" value="1" data-field="level" data-keep="1"></div><span></span></div>
@@ -30,8 +30,8 @@
   </section>
 
   <section class="panel">
-    <h2>Характеристики <button class="btn small" type="button" data-rnd="scores" data-title="3к6 по порядку"><svg class="ico" aria-hidden="true"><use href="#i-dice"/></svg> Бросить 3к6</button></h2>
-    <p class="hint">3к6 по порядку: Сила, Ловкость, Телосложение, Интеллект, Мудрость, Харизма. Если нет ни одной 14+ — перебрасываем всё.</p>
+    <h2>Характеристики <span class="toolbar"><button class="btn small" type="button" data-rnd="scores" data-title="3к6 по порядку"><svg class="ico" aria-hidden="true"><use href="#i-dice"/></svg> 3к6</button><button class="btn small" type="button" data-rnd="scores" data-method="4d4" data-title="4к4+4 по порядку"><svg class="ico" aria-hidden="true"><use href="#i-dice"/></svg> 4к4+4</button></span></h2>
+    <p class="hint">По порядку: Сила, Ловкость, Телосложение, Интеллект, Мудрость, Харизма. 3к6 по книге (нет ни одной 14+ — перебрасываем всё) или мягкий вариант 4к4+4 (от 8 до 20).</p>
     <div class="abilities">
       {{range .Data.abilities}}
       <div class="ab">

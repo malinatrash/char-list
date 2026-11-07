@@ -4,13 +4,11 @@ import (
 	"bytes"
 	"fmt"
 	"io"
-	"io/fs"
 	"strings"
 
+	"char-list/internal/embed"
 	"github.com/signintech/gopdf"
 )
-
-var Assets fs.FS
 
 type Doc struct {
 	pdf  gopdf.GoPdf
@@ -20,18 +18,10 @@ type Doc struct {
 }
 
 func New(template string, w, h float64) (*Doc, error) {
-	tpl, err := fs.ReadFile(Assets, "assets/sheets/"+template)
-	if err != nil {
-		return nil, err
-	}
-	d := &Doc{tpl: tpl, W: w, H: h, font: "serif"}
+	d := &Doc{tpl: embed.Sheet(template), W: w, H: h, font: "serif"}
 	d.pdf.Start(gopdf.Config{PageSize: gopdf.Rect{W: w, H: h}})
 	for name, file := range map[string]string{"serif": "DejaVuSerif.ttf", "bold": "DejaVuSerif-Bold.ttf", "sans": "DejaVuSans.ttf"} {
-		b, err := fs.ReadFile(Assets, "assets/fonts/"+file)
-		if err != nil {
-			return nil, err
-		}
-		if err := d.pdf.AddTTFFontData(name, b); err != nil {
+		if err := d.pdf.AddTTFFontData(name, embed.Font(file)); err != nil {
 			return nil, fmt.Errorf("font %s: %w", name, err)
 		}
 	}

@@ -16,9 +16,9 @@
     <h2>Кто ты</h2>
     <div class="field"><div><label>Имя персонажа</label><input type="text" data-field="name"></div><button class="rnd" type="button" data-rnd="name" data-title="Имя"><svg class="ico" aria-hidden="true"><use href="#i-dice"/></svg></button></div>
     <div class="row">
-      <div class="field"><div><label>Раса</label><select data-field="race" id="race"><option value="">—</option>{{range .Data.races}}<option>{{.Name}}</option>{{end}}</select></div><button class="rnd" type="button" data-rnd="race,name,languages,features" data-title="Раса"><svg class="ico" aria-hidden="true"><use href="#i-dice"/></svg></button></div>
-      <div class="field"><div><label>Класс</label><select data-field="class" id="class"><option value="">—</option>{{range .Data.classes}}<option>{{.Name}}</option>{{end}}</select></div><button class="rnd" type="button" data-rnd="class,skills,equipment,features,spells" data-title="Класс"><svg class="ico" aria-hidden="true"><use href="#i-dice"/></svg></button></div>
-      <div class="field"><div><label>Предыстория</label><select data-field="background"><option value="">—</option>{{range .Data.backgrounds}}<option>{{.Name}}</option>{{end}}</select></div><button class="rnd" type="button" data-rnd="background,skills,equipment,languages,features" data-title="Предыстория"><svg class="ico" aria-hidden="true"><use href="#i-dice"/></svg></button></div>
+      <div class="field"><div><label>Раса</label><input type="text" data-field="race" id="race" list="dl-race" placeholder="выбери или впиши свою"><datalist id="dl-race">{{range .Data.races}}<option value="{{.Name}}"></option>{{end}}</datalist></div><button class="rnd" type="button" data-rnd="race,name,languages,features" data-title="Раса"><svg class="ico" aria-hidden="true"><use href="#i-dice"/></svg></button></div>
+      <div class="field"><div><label>Класс</label><input type="text" data-field="class" id="class" list="dl-class" placeholder="выбери или впиши свой"><datalist id="dl-class">{{range .Data.classes}}<option value="{{.Name}}"></option>{{end}}</datalist></div><button class="rnd" type="button" data-rnd="class,skills,equipment,features,spells" data-title="Класс"><svg class="ico" aria-hidden="true"><use href="#i-dice"/></svg></button></div>
+      <div class="field"><div><label>Предыстория</label><input type="text" data-field="background" list="dl-bg" placeholder="выбери или впиши свою"><datalist id="dl-bg">{{range .Data.backgrounds}}<option value="{{.Name}}"></option>{{end}}</datalist></div><button class="rnd" type="button" data-rnd="background,skills,equipment,languages,features" data-title="Предыстория"><svg class="ico" aria-hidden="true"><use href="#i-dice"/></svg></button></div>
       <div class="field"><div><label>Мировоззрение</label><select data-field="alignment"><option value="">—</option>{{range .Data.alignments}}<option>{{.}}</option>{{end}}</select></div><button class="rnd" type="button" data-rnd="alignment" data-title="Мировоззрение"><svg class="ico" aria-hidden="true"><use href="#i-dice"/></svg></button></div>
       <div class="field"><div><label>Имя игрока</label><input type="text" data-field="player"></div><span></span></div>
       <div class="row">
@@ -115,16 +115,16 @@ document.body.dataset.ed = "dnd5e";
     $('d-saves').innerHTML = DATA.abilities.map(a => `<div class="kv"><span>${(d.saveProf||[]).includes(a) ? '● ' : ''}Спасбросок ${abRu[a]}</span><b>${sgn(d.saves[a])}</b></div>`).join('');
     $('d-attacks').innerHTML = (d.attacks || []).map(a => `<div class="att"><b>${a.name}</b> — атака ${sgn(a.bonus)}, урон ${a.damage}</div>`).join('') || '<div class="hint">Выбери класс</div>';
     $('d-spell').textContent = d.caster ? `Заклинания: ${d.caster}, КС ${d.spellDC}, атака ${sgn(d.spellAtk)}` : '';
-    for (const s of DATA.skills) $('sk-' + s.Key).textContent = sgn(d.skillBonus[s.Key]);
+    for (const s of DATA.skills) $('sk-' + s.key).textContent = sgn(d.skillBonus[s.key]);
     const pool = d.skillPool || [];
     document.querySelectorAll('.skill').forEach(el => el.classList.toggle('pool-ok', pool.includes(el.dataset.skill)));
     const bg = DATA.backgrounds.find(b => b.name === c.background);
-    $('skill-hint').textContent = d.skillCount ? `Класс даёт ${d.skillCount} навыка из подсвеченных` + (bg ? `, предыстория «${bg.name}» — ещё ${bg.skills.map(k => DATA.skills.find(s => s.Key === k).Name).join(' и ')}.` : '.') : 'Выбери класс — подсветятся доступные навыки.';
+    $('skill-hint').textContent = d.skillCount ? `Класс даёт ${d.skillCount} навыка из подсвеченных` + (bg ? `, предыстория «${bg.name}» — ещё ${bg.skills.map(k => DATA.skills.find(s => s.key === k).name).join(' и ')}.` : '.') : 'Выбери класс — подсветятся доступные навыки.';
   };
 
   const origRandom = App.random;
-  App.random = async (fields, title) => {
-    const res = await origRandom(fields, title);
+  App.random = async (fields, title, method) => {
+    const res = await origRandom(fields, title, method);
     if (!fields || fields.includes('scores')) showPool(res.rolls.map(r => r.total));
     return res;
   };

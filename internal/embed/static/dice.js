@@ -57,7 +57,7 @@ window.Dice = (() => {
       for (const r of rolls) {
         const g = document.createElement('div');
         g.className = 'tray-group';
-        const gl = document.createElement('div'); gl.className = 'gl'; gl.textContent = `${r.label} · ${r.dice.length}к${r.sides}`;
+        const gl = document.createElement('div'); gl.className = 'gl'; gl.textContent = `${r.label} · ${r.dice.length}к${r.sides}${r.bonus ? '+' + r.bonus : ''}`;
         const gd = document.createElement('div'); gd.className = 'gd';
         r.dice.forEach((v, i) => {
           const el = r.sides === 6 ? cube(v) : poly(r.sides, v);
