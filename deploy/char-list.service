@@ -1,0 +1,19 @@
+[Unit]
+Description=char-list
+After=network.target
+
+[Service]
+User=char-list
+Group=char-list
+WorkingDirectory=/opt/char-list
+ExecStart=/opt/char-list/char-list -addr 0.0.0.0:8081 -music /opt/char-list/music
+Restart=always
+RestartSec=2
+MemoryMax=256M
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

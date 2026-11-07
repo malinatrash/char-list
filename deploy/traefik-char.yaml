@@ -1,0 +1,22 @@
+http:
+  routers:
+    char-http:
+      entryPoints: [http]
+      rule: "Host(`char.dnd.malinatrash.com`)"
+      middlewares: [char-https]
+      service: char
+    char:
+      entryPoints: [https]
+      rule: "Host(`char.dnd.malinatrash.com`)"
+      service: char
+      tls:
+        certResolver: letsencrypt
+  middlewares:
+    char-https:
+      redirectScheme:
+        scheme: https
+  services:
+    char:
+      loadBalancer:
+        servers:
+          - url: "http://host.docker.internal:8081"

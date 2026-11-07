@@ -1,0 +1,6 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    { "name": "char-list", "runtimeExecutable": "go", "runtimeArgs": ["run", ".", "-addr", ":8080"], "port": 8080 }
+  ]
+}

@@ -1,0 +1,100 @@
+{{template "head" (dict "Title" "Shadowdark — лист персонажа")}}
+<main class="wrap">
+<div class="sheet-head">
+  <h1>Shadowdark</h1>
+  <div class="toolbar">
+    <button class="btn gold" type="button" id="rnd-all"><svg class="ico" aria-hidden="true"><use href="#i-dice"/></svg> Всё случайно</button>
+    <button class="btn pdf-btn" type="button" id="btn-print"><svg class="ico" aria-hidden="true"><use href="#i-print"/></svg> Печать</button>
+    <button class="btn pdf-btn ghost" type="button" id="btn-open"><svg class="ico" aria-hidden="true"><use href="#i-open"/></svg> Открыть PDF</button>
+    <button class="btn pdf-btn ghost" type="button" id="btn-download"><svg class="ico" aria-hidden="true"><use href="#i-down"/></svg> Скачать</button>
+    <button class="btn ghost small" type="button" id="btn-clear"><svg class="ico" aria-hidden="true"><use href="#i-clear"/></svg> Очистить</button>
+  </div>
+</div>
+<form id="sheet" class="layout" autocomplete="off">
+<div>
+  <section class="panel">
+    <h2>Кто ты</h2>
+    <div class="field"><div><label>Имя</label><input type="text" data-field="name"></div><button class="rnd" type="button" data-rnd="name" data-title="Имя"><svg class="ico" aria-hidden="true"><use href="#i-dice"/></svg></button></div>
+    <div class="row">
+      <div class="field"><div><label>Происхождение</label><select data-field="ancestry"><option value="">—</option>{{range .Data.ancestries}}<option>{{.Name}}</option>{{end}}</select></div><button class="rnd" type="button" data-rnd="ancestry,name,talents" data-title="Происхождение, к12"><svg class="ico" aria-hidden="true"><use href="#i-dice"/></svg></button></div>
+      <div class="field"><div><label>Класс</label><select data-field="class"><option value="">—</option>{{range .Data.classes}}<option>{{.Name}}</option>{{end}}</select></div><button class="rnd" type="button" data-rnd="class,title,talents,hp,gear" data-title="Класс, к4"><svg class="ico" aria-hidden="true"><use href="#i-dice"/></svg></button></div>
+      <div class="field"><div><label>Мировоззрение</label><select data-field="alignment"><option value="">—</option>{{range .Data.alignments}}<option>{{.}}</option>{{end}}</select></div><button class="rnd" type="button" data-rnd="alignment,title" data-title="Мировоззрение, к6"><svg class="ico" aria-hidden="true"><use href="#i-dice"/></svg></button></div>
+      <div class="field"><div><label>Титул</label><input type="text" data-field="title" placeholder="по классу и мировоззрению"></div><button class="rnd" type="button" data-rnd="title"><svg class="ico" aria-hidden="true"><use href="#i-dice"/></svg></button></div>
+      <div class="field"><div><label>Предыстория</label><select data-field="background"><option value="">—</option>{{range .Data.backgrounds}}<option>{{.}}</option>{{end}}</select></div><button class="rnd" type="button" data-rnd="background" data-title="Предыстория, к20"><svg class="ico" aria-hidden="true"><use href="#i-dice"/></svg></button></div>
+      <div class="field"><div><label>Божество</label><select data-field="deity"><option value="">—</option>{{range .Data.deities}}<option>{{.}}</option>{{end}}</select></div><button class="rnd" type="button" data-rnd="deity"><svg class="ico" aria-hidden="true"><use href="#i-dice"/></svg></button></div>
+      <div class="row">
+        <div class="field"><div><label>Уровень</label><input type="number" min="1" max="10" value="1" data-field="level" data-keep="1"></div><span></span></div>
+        <div class="field"><div><label>Опыт</label><input type="number" min="0" value="0" data-field="xp" data-keep="1"></div><span></span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel">
+    <h2>Характеристики <button class="btn small" type="button" data-rnd="scores" data-title="3к6 по порядку"><svg class="ico" aria-hidden="true"><use href="#i-dice"/></svg> Бросить 3к6</button></h2>
+    <p class="hint">3к6 по порядку: Сила, Ловкость, Телосложение, Интеллект, Мудрость, Харизма. Если нет ни одной 14+ — перебрасываем всё.</p>
+    <div class="abilities">
+      {{range .Data.abilities}}
+      <div class="ab">
+        <div class="nm">{{index $.Data.abilityRu .}}</div>
+        <input type="number" min="1" max="20" data-field="score" data-ab="{{.}}" inputmode="numeric">
+        <div class="bonus"></div>
+        <div class="mod" id="mod-{{.}}">+0</div>
+      </div>
+      {{end}}
+    </div>
+  </section>
+
+  <section class="panel">
+    <h2>Хиты, таланты, заклинания</h2>
+    <div class="row">
+      <div class="field"><div><label>Хиты</label><input type="number" min="1" data-field="hp" inputmode="numeric"></div><button class="rnd" type="button" data-rnd="hp" data-title="Кость хитов класса + Тел"><svg class="ico" aria-hidden="true"><use href="#i-dice"/></svg></button></div>
+    </div>
+    <div class="field"><div><label>Таланты и заклинания</label><textarea data-field="talents" rows="6"></textarea></div><button class="rnd" type="button" data-rnd="talents" data-title="Талант, 2к6"><svg class="ico" aria-hidden="true"><use href="#i-dice"/></svg></button></div>
+    <div class="field"><div><label>Атаки (пусто — посчитаем по снаряжению)</label><textarea data-field="attacks" rows="3"></textarea></div><span></span></div>
+  </section>
+
+  <section class="panel">
+    <h2>Снаряжение</h2>
+    <div class="field"><div><label>Предметы (по строке на предмет, до 20)</label><textarea data-field="gear" rows="7"></textarea></div><button class="rnd" type="button" data-rnd="gear" data-title="Золото 2к6×5, снаряжение к4 раз по к12"><svg class="ico" aria-hidden="true"><use href="#i-dice"/></svg></button></div>
+    <div class="abilities" style="grid-template-columns:repeat(3,1fr)">
+      <div class="ab"><div class="nm">Золото</div><input type="number" min="0" data-field="gp" inputmode="numeric"></div>
+      <div class="ab"><div class="nm">Серебро</div><input type="number" min="0" data-field="sp" inputmode="numeric"></div>
+      <div class="ab"><div class="nm">Медь</div><input type="number" min="0" data-field="cp" inputmode="numeric"></div>
+    </div>
+  </section>
+</div>
+<aside class="aside">
+  <section class="panel">
+    <h2>Итог</h2>
+    <div class="stat-grid">
+      <div class="stat"><div class="v" id="d-ac">10</div><div class="l">КД</div></div>
+      <div class="stat"><div class="v" id="d-slots">10</div><div class="l">Слоты</div></div>
+      <div class="stat"><div class="v" id="d-xp">0 / 10</div><div class="l">Опыт</div></div>
+    </div>
+    <div class="kv"><span>Доспех</span><b id="d-armor">—</b></div>
+    <div class="kv"><span>Кость хитов</span><b id="d-hd">—</b></div>
+    <div class="kv"><span>Титул</span><b id="d-title">—</b></div>
+    <h2 style="margin-top:1rem">Атаки по снаряжению</h2>
+    <div id="d-attacks"></div>
+  </section>
+</aside>
+</form>
+</main>
+<script>
+const DATA = {{json .Data}};
+document.body.dataset.ed = "shadowdark";
+</script>
+{{template "foot"}}
+<script>
+(() => {
+  const $ = id => document.getElementById(id);
+  const sgn = n => (n >= 0 ? '+' : '') + n;
+  App.hooks.renderDerived = (d, c) => {
+    for (const a of DATA.abilities) $('mod-' + a).textContent = sgn(d.mods[a]);
+    $('d-ac').textContent = d.ac; $('d-slots').textContent = d.slots; $('d-xp').textContent = `${c.xp || 0} / ${d.xpNext}`;
+    $('d-armor').textContent = d.acNote; $('d-hd').textContent = d.hitDie || '—'; $('d-title').textContent = c.title || d.title || '—';
+    $('d-attacks').innerHTML = (d.attacks || []).map(a => `<div class="att"><b>${a.name}</b> — атака ${sgn(a.bonus)}, урон ${a.damage}</div>`).join('') || '<div class="hint">Впиши оружие в снаряжение</div>';
+  };
+  App.init();
+})();
+</script>

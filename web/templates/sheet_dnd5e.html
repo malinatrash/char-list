@@ -1,0 +1,146 @@
+{{template "head" (dict "Title" "D&D 5e — лист персонажа")}}
+<main class="wrap">
+<div class="sheet-head">
+  <h1>Dungeons & Dragons 5e</h1>
+  <div class="toolbar">
+    <button class="btn gold" type="button" id="rnd-all"><svg class="ico" aria-hidden="true"><use href="#i-dice"/></svg> Всё случайно</button>
+    <button class="btn pdf-btn" type="button" id="btn-print"><svg class="ico" aria-hidden="true"><use href="#i-print"/></svg> Печать</button>
+    <button class="btn pdf-btn ghost" type="button" id="btn-open"><svg class="ico" aria-hidden="true"><use href="#i-open"/></svg> Открыть PDF</button>
+    <button class="btn pdf-btn ghost" type="button" id="btn-download"><svg class="ico" aria-hidden="true"><use href="#i-down"/></svg> Скачать</button>
+    <button class="btn ghost small" type="button" id="btn-clear"><svg class="ico" aria-hidden="true"><use href="#i-clear"/></svg> Очистить</button>
+  </div>
+</div>
+<form id="sheet" class="layout" autocomplete="off">
+<div>
+  <section class="panel">
+    <h2>Кто ты</h2>
+    <div class="field"><div><label>Имя персонажа</label><input type="text" data-field="name"></div><button class="rnd" type="button" data-rnd="name" data-title="Имя"><svg class="ico" aria-hidden="true"><use href="#i-dice"/></svg></button></div>
+    <div class="row">
+      <div class="field"><div><label>Раса</label><select data-field="race" id="race"><option value="">—</option>{{range .Data.races}}<option>{{.Name}}</option>{{end}}</select></div><button class="rnd" type="button" data-rnd="race,name,languages,features" data-title="Раса"><svg class="ico" aria-hidden="true"><use href="#i-dice"/></svg></button></div>
+      <div class="field"><div><label>Класс</label><select data-field="class" id="class"><option value="">—</option>{{range .Data.classes}}<option>{{.Name}}</option>{{end}}</select></div><button class="rnd" type="button" data-rnd="class,skills,equipment,features,spells" data-title="Класс"><svg class="ico" aria-hidden="true"><use href="#i-dice"/></svg></button></div>
+      <div class="field"><div><label>Предыстория</label><select data-field="background"><option value="">—</option>{{range .Data.backgrounds}}<option>{{.Name}}</option>{{end}}</select></div><button class="rnd" type="button" data-rnd="background,skills,equipment,languages,features" data-title="Предыстория"><svg class="ico" aria-hidden="true"><use href="#i-dice"/></svg></button></div>
+      <div class="field"><div><label>Мировоззрение</label><select data-field="alignment"><option value="">—</option>{{range .Data.alignments}}<option>{{.}}</option>{{end}}</select></div><button class="rnd" type="button" data-rnd="alignment" data-title="Мировоззрение"><svg class="ico" aria-hidden="true"><use href="#i-dice"/></svg></button></div>
+      <div class="field"><div><label>Имя игрока</label><input type="text" data-field="player"></div><span></span></div>
+      <div class="row">
+        <div class="field"><div><label>Уровень</label><input type="number" min="1" max="20" value="1" data-field="level" data-keep="1"></div><span></span></div>
+        <div class="field"><div><label>Опыт</label><input type="number" min="0" value="0" data-field="xp" data-keep="1"></div><span></span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel">
+    <h2>Характеристики <button class="btn small" type="button" data-rnd="scores" data-title="4к6, худший куб прочь"><svg class="ico" aria-hidden="true"><use href="#i-dice"/></svg> Бросить 4к6 ×6</button></h2>
+    <p class="hint">Бросок 4к6 шесть раз, худший куб отбрасывается. Значения можно вписать и руками — например, стандартный набор 15, 14, 13, 12, 10, 8.</p>
+    <div class="pool" id="pool"></div>
+    <div class="abilities">
+      {{range .Data.abilities}}
+      <div class="ab" data-ab="{{.}}">
+        <div class="nm">{{index $.Data.abilityRu .}}</div>
+        <input type="number" min="1" max="30" data-field="score" data-ab="{{.}}" inputmode="numeric">
+        <div class="bonus" id="bonus-{{.}}"></div>
+        <div class="mod" id="mod-{{.}}">+0</div>
+      </div>
+      {{end}}
+    </div>
+  </section>
+
+  <section class="panel">
+    <h2>Навыки <button class="btn small" type="button" data-rnd="skills" data-title="Навыки"><svg class="ico" aria-hidden="true"><use href="#i-dice"/></svg> Выбрать за меня</button></h2>
+    <p class="hint" id="skill-hint">Выбери класс — подсветятся доступные навыки.</p>
+    <div class="skills">
+      {{range .Data.skills}}
+      <label class="skill" data-skill="{{.Key}}"><input type="checkbox" data-field="skills" value="{{.Key}}"> {{.Name}} <span class="ab-tag">({{index $.Data.abilityRu .Ability}})</span><span class="b" id="sk-{{.Key}}">+0</span></label>
+      {{end}}
+    </div>
+  </section>
+
+  <section class="panel">
+    <h2>Личность</h2>
+    <div class="field"><div><label>Черты характера</label><textarea data-field="traits" rows="2"></textarea></div><button class="rnd" type="button" data-rnd="traits"><svg class="ico" aria-hidden="true"><use href="#i-dice"/></svg></button></div>
+    <div class="field"><div><label>Идеалы</label><textarea data-field="ideals" rows="2"></textarea></div><button class="rnd" type="button" data-rnd="ideals"><svg class="ico" aria-hidden="true"><use href="#i-dice"/></svg></button></div>
+    <div class="field"><div><label>Привязанности</label><textarea data-field="bonds" rows="2"></textarea></div><button class="rnd" type="button" data-rnd="bonds"><svg class="ico" aria-hidden="true"><use href="#i-dice"/></svg></button></div>
+    <div class="field"><div><label>Слабости</label><textarea data-field="flaws" rows="2"></textarea></div><button class="rnd" type="button" data-rnd="flaws"><svg class="ico" aria-hidden="true"><use href="#i-dice"/></svg></button></div>
+  </section>
+
+  <section class="panel">
+    <h2>Снаряжение и особенности</h2>
+    <div class="field"><div><label>Языки и владения</label><textarea data-field="languages" rows="3"></textarea></div><button class="rnd" type="button" data-rnd="languages"><svg class="ico" aria-hidden="true"><use href="#i-dice"/></svg></button></div>
+    <div class="field"><div><label>Снаряжение (по строке на предмет)</label><textarea data-field="equipment" rows="5"></textarea></div><button class="rnd" type="button" data-rnd="equipment"><svg class="ico" aria-hidden="true"><use href="#i-dice"/></svg></button></div>
+    <div class="field"><div><label>Умения и особенности</label><textarea data-field="features" rows="5"></textarea></div><button class="rnd" type="button" data-rnd="features"><svg class="ico" aria-hidden="true"><use href="#i-dice"/></svg></button></div>
+    <div class="field"><div><label>Заклинания</label><textarea data-field="spells" rows="3"></textarea></div><button class="rnd" type="button" data-rnd="spells"><svg class="ico" aria-hidden="true"><use href="#i-dice"/></svg></button></div>
+  </section>
+</div>
+<aside class="aside">
+  <section class="panel">
+    <h2>Итог</h2>
+    <div class="stat-grid">
+      <div class="stat"><div class="v" id="d-ac">10</div><div class="l">КД</div></div>
+      <div class="stat"><div class="v" id="d-init">+0</div><div class="l">Инициатива</div></div>
+      <div class="stat"><div class="v" id="d-speed">30</div><div class="l">Скорость</div></div>
+      <div class="stat"><div class="v" id="d-hp">—</div><div class="l">Хиты</div></div>
+      <div class="stat"><div class="v" id="d-prof">+2</div><div class="l">Мастерство</div></div>
+      <div class="stat"><div class="v" id="d-passive">10</div><div class="l">Пасс. внимат.</div></div>
+    </div>
+    <div class="kv"><span>Кость хитов</span><b id="d-hd">—</b></div>
+    <div class="kv"><span>Доспех</span><b id="d-armor">—</b></div>
+    <div id="d-saves"></div>
+    <h2 style="margin-top:1rem">Атаки</h2>
+    <div id="d-attacks"></div>
+    <div id="d-spell" class="hint"></div>
+  </section>
+</aside>
+</form>
+</main>
+<script>
+const DATA = {{json .Data}};
+document.body.dataset.ed = "dnd5e";
+</script>
+{{template "foot"}}
+<script>
+(() => {
+  const $ = id => document.getElementById(id);
+  const sgn = n => (n >= 0 ? '+' : '') + n;
+  const abRu = DATA.abilityRu;
+  let lastDerived = null;
+
+  App.hooks.renderDerived = (d, c) => {
+    lastDerived = d;
+    for (const a of DATA.abilities) {
+      $('mod-' + a).textContent = sgn(d.mods[a]);
+      $('bonus-' + a).textContent = d.bonus[a] ? `раса ${sgn(d.bonus[a])} → ${d.final[a]}` : '';
+    }
+    $('d-ac').textContent = d.ac; $('d-init').textContent = sgn(d.initiative); $('d-speed').textContent = d.speed;
+    $('d-hp').textContent = d.maxHP; $('d-prof').textContent = sgn(d.prof); $('d-passive').textContent = d.passive;
+    $('d-hd').textContent = d.hitDie || '—'; $('d-armor').textContent = d.armorNote || '—';
+    $('d-saves').innerHTML = DATA.abilities.map(a => `<div class="kv"><span>${(d.saveProf||[]).includes(a) ? '● ' : ''}Спасбросок ${abRu[a]}</span><b>${sgn(d.saves[a])}</b></div>`).join('');
+    $('d-attacks').innerHTML = (d.attacks || []).map(a => `<div class="att"><b>${a.name}</b> — атака ${sgn(a.bonus)}, урон ${a.damage}</div>`).join('') || '<div class="hint">Выбери класс</div>';
+    $('d-spell').textContent = d.caster ? `Заклинания: ${d.caster}, КС ${d.spellDC}, атака ${sgn(d.spellAtk)}` : '';
+    for (const s of DATA.skills) $('sk-' + s.Key).textContent = sgn(d.skillBonus[s.Key]);
+    const pool = d.skillPool || [];
+    document.querySelectorAll('.skill').forEach(el => el.classList.toggle('pool-ok', pool.includes(el.dataset.skill)));
+    const bg = DATA.backgrounds.find(b => b.name === c.background);
+    $('skill-hint').textContent = d.skillCount ? `Класс даёт ${d.skillCount} навыка из подсвеченных` + (bg ? `, предыстория «${bg.name}» — ещё ${bg.skills.map(k => DATA.skills.find(s => s.Key === k).Name).join(' и ')}.` : '.') : 'Выбери класс — подсветятся доступные навыки.';
+  };
+
+  const origRandom = App.random;
+  App.random = async (fields, title) => {
+    const res = await origRandom(fields, title);
+    if (!fields || fields.includes('scores')) showPool(res.rolls.map(r => r.total));
+    return res;
+  };
+  function showPool(vals) {
+    const el = $('pool');
+    el.innerHTML = '<span class="hint">Выпало:</span>' + vals.map(v => `<span class="chip">${v}</span>`).join('') +
+      ' <button class="btn small ghost" type="button" id="pool-sort">Лучшее — в главное</button>';
+    $('pool-sort').onclick = () => {
+      const cls = $('class').value;
+      const prio = { 'Бард': ['cha','dex','con'], 'Варвар': ['str','con','dex'], 'Воин': ['str','con','dex'], 'Волшебник': ['int','con','dex'], 'Друид': ['wis','con','dex'], 'Жрец': ['wis','con','str'], 'Колдун': ['cha','con','dex'], 'Монах': ['dex','wis','con'], 'Паладин': ['str','cha','con'], 'Плут': ['dex','int','con'], 'Следопыт': ['dex','wis','con'], 'Чародей': ['cha','con','dex'] }[cls] || ['str','dex','con'];
+      const order = [...prio, ...DATA.abilities.filter(a => !prio.includes(a))];
+      const sorted = [...vals].sort((a, b) => b - a);
+      order.forEach((a, i) => { document.querySelector(`[data-field=score][data-ab=${a}]`).value = sorted[i]; });
+      App.save(); App.derive();
+    };
+  }
+  App.init();
+})();
+</script>

@@ -1,0 +1,7 @@
+/char-list
+/bin/
+/dist/
+.DS_Store
+/music/
+*.mp4
+*.mp3

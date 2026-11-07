@@ -1,0 +1,24 @@
+name: deploy
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+      - name: Build
+        run: CGO_ENABLED=0 GOOS=linux GOARCH=arm64 go build -trimpath -ldflags="-s -w" -o char-list .
+      - name: Deploy
+        env:
+          KEY: ${{ secrets.DEPLOY_KEY }}
+          HOST: ${{ secrets.DEPLOY_HOST }}
+          HOST_KEY: ${{ secrets.DEPLOY_HOST_KEY }}
+        run: |
+          umask 077 && echo "$KEY" > key && echo "$HOST $HOST_KEY" > known_hosts
+          ssh -i key -o UserKnownHostsFile=known_hosts ubuntu@"$HOST" deploy < char-list

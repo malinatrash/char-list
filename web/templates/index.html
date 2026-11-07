@@ -1,0 +1,20 @@
+{{template "head" (dict "Title" "Лист персонажа — выбор шаблона")}}
+<main class="wrap">
+  <section class="hero">
+    <h1>Выбери шаблон</h1>
+    <p class="muted">Заполни лист вручную, брось настоящие кубики или доверь всё случаю. Готовый лист ложится на печатный шаблон редакции и уходит в PDF.</p>
+  </section>
+  <section class="cards">
+    {{range .Editions}}
+    <a class="card" href="/sheet/{{.ID}}">
+      <div class="card-preview card-{{.ID}}"></div>
+      <div class="card-body">
+        <h2>{{.Name}}</h2>
+        <p>{{.Blurb}}</p>
+        <span class="tag"><svg class="ico" aria-hidden="true"><use href="#i-dice"/></svg> {{.Method}}</span>
+      </div>
+    </a>
+    {{end}}
+  </section>
+</main>
+{{template "foot"}}
