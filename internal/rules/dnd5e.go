@@ -80,6 +80,7 @@ func (DnD5e) Data() any {
 		"classes":     d5.Classes,
 		"backgrounds": d5.Backgrounds,
 		"alignments":  d5.Alignments,
+		"abilityDesc": d5.AbilityDesc,
 	}
 }
 
@@ -157,7 +158,7 @@ func (e DnD5e) Random(raw json.RawMessage, fields []string, method string) (any,
 		c.Background = dice.Pick(d5.Backgrounds).Name
 	}
 	if has(fields, "alignment") {
-		c.Alignment = dice.Pick(d5.Alignments)
+		c.Alignment = dice.Pick(d5.Alignments).Name
 	}
 	r := race5eByName(c.Race)
 	cl := class5eByName(c.Class)

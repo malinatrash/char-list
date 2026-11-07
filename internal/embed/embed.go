@@ -12,14 +12,22 @@ import (
 //go:embed editions fonts sheets templates static
 var files goembed.FS
 
+type Named struct {
+	Name string `json:"name" yaml:"name"`
+	Desc string `json:"desc" yaml:"desc"`
+}
+
 type Skill5e struct {
 	Key     string `json:"key" yaml:"key"`
 	Name    string `json:"name" yaml:"name"`
 	Ability string `json:"ability" yaml:"ability"`
+	Desc    string `json:"desc" yaml:"desc"`
 }
 
 type Race5e struct {
 	Name      string         `json:"name" yaml:"name"`
+	Desc      string         `json:"desc" yaml:"desc"`
+	Details   string         `json:"details" yaml:"details"`
 	Bonus     map[string]int `json:"bonus" yaml:"bonus"`
 	Flex      int            `json:"flex" yaml:"flex"`
 	Speed     int            `json:"speed" yaml:"speed"`
@@ -37,6 +45,8 @@ type Weapon5e struct {
 
 type Class5e struct {
 	Name       string     `json:"name" yaml:"name"`
+	Desc       string     `json:"desc" yaml:"desc"`
+	Details    string     `json:"details" yaml:"details"`
 	HitDie     int        `json:"hitDie" yaml:"hitDie"`
 	Saves      []string   `json:"saves" yaml:"saves"`
 	SkillCount int        `json:"skillCount" yaml:"skillCount"`
@@ -55,6 +65,8 @@ type Class5e struct {
 
 type Background5e struct {
 	Name      string   `json:"name" yaml:"name"`
+	Desc      string   `json:"desc" yaml:"desc"`
+	Details   string   `json:"details" yaml:"details"`
 	Skills    []string `json:"skills" yaml:"skills"`
 	Extra     string   `json:"extra" yaml:"extra"`
 	Equipment []string `json:"equipment" yaml:"equipment"`
@@ -62,19 +74,22 @@ type Background5e struct {
 }
 
 type DnD5eData struct {
-	Skills      []Skill5e      `json:"skills" yaml:"skills"`
-	Races       []Race5e       `json:"races" yaml:"races"`
-	Classes     []Class5e      `json:"classes" yaml:"classes"`
-	Backgrounds []Background5e `json:"backgrounds" yaml:"backgrounds"`
-	Alignments  []string       `json:"alignments" yaml:"alignments"`
-	Traits      []string       `json:"traits" yaml:"traits"`
-	Ideals      []string       `json:"ideals" yaml:"ideals"`
-	Bonds       []string       `json:"bonds" yaml:"bonds"`
-	Flaws       []string       `json:"flaws" yaml:"flaws"`
+	Skills      []Skill5e         `json:"skills" yaml:"skills"`
+	Races       []Race5e          `json:"races" yaml:"races"`
+	Classes     []Class5e         `json:"classes" yaml:"classes"`
+	Backgrounds []Background5e    `json:"backgrounds" yaml:"backgrounds"`
+	Alignments  []Named           `json:"alignments" yaml:"alignments"`
+	AbilityDesc map[string]string `json:"abilityDesc" yaml:"abilityDesc"`
+	Traits      []string          `json:"traits" yaml:"traits"`
+	Ideals      []string          `json:"ideals" yaml:"ideals"`
+	Bonds       []string          `json:"bonds" yaml:"bonds"`
+	Flaws       []string          `json:"flaws" yaml:"flaws"`
 }
 
 type AncestrySD struct {
 	Name      string   `json:"name" yaml:"name"`
+	Desc      string   `json:"desc" yaml:"desc"`
+	Details   string   `json:"details" yaml:"details"`
 	Trait     string   `json:"trait" yaml:"trait"`
 	Languages string   `json:"languages" yaml:"languages"`
 	Syllables []string `json:"-" yaml:"syllables"`
@@ -89,6 +104,8 @@ type WeaponSD struct {
 
 type ClassSD struct {
 	Name     string         `json:"name" yaml:"name"`
+	Desc     string         `json:"desc" yaml:"desc"`
+	Details  string         `json:"details" yaml:"details"`
 	HitDie   int            `json:"hitDie" yaml:"hitDie"`
 	Armor    string         `json:"armor" yaml:"armor"`
 	Weapons  string         `json:"weapons" yaml:"weapons"`
@@ -101,12 +118,13 @@ type ClassSD struct {
 }
 
 type ShadowdarkData struct {
-	Ancestries  []AncestrySD `json:"ancestries" yaml:"ancestries"`
-	Classes     []ClassSD    `json:"classes" yaml:"classes"`
-	Alignments  []string     `json:"alignments" yaml:"alignments"`
-	Deities     []string     `json:"deities" yaml:"deities"`
-	Backgrounds []string     `json:"backgrounds" yaml:"backgrounds"`
-	Gear        []string     `json:"gear" yaml:"gear"`
+	Ancestries  []AncestrySD      `json:"ancestries" yaml:"ancestries"`
+	Classes     []ClassSD         `json:"classes" yaml:"classes"`
+	Alignments  []Named           `json:"alignments" yaml:"alignments"`
+	Deities     []Named           `json:"deities" yaml:"deities"`
+	Backgrounds []Named           `json:"backgrounds" yaml:"backgrounds"`
+	Gear        []string          `json:"gear" yaml:"gear"`
+	AbilityDesc map[string]string `json:"abilityDesc" yaml:"abilityDesc"`
 }
 
 var (

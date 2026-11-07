@@ -3,7 +3,7 @@ window.App = (() => {
   const form = document.getElementById('sheet');
   if (!ed || !form) return {};
   const key = 'char-list:' + ed;
-  const hooks = { renderDerived: () => {}, afterApply: () => {} };
+  const hooks = { renderDerived: () => {}, afterApply: () => { window.Picker && Picker.refresh(); } };
 
   function collect() {
     const c = { scores: {} };

@@ -61,6 +61,7 @@ func (Shadowdark) Data() any {
 		"alignments":  sd.Alignments,
 		"deities":     sd.Deities,
 		"backgrounds": sd.Backgrounds,
+		"abilityDesc": sd.AbilityDesc,
 	}
 }
 
@@ -171,15 +172,15 @@ func (e Shadowdark) Random(raw json.RawMessage, fields []string, method string) 
 	if has(fields, "alignment") {
 		r := dice.Roll("Мировоззрение", 1, 6)
 		logs = append(logs, r)
-		c.Alignment = sd.Alignments[[]int{0, 0, 0, 1, 1, 2}[r.Total-1]]
+		c.Alignment = sd.Alignments[[]int{0, 0, 0, 1, 1, 2}[r.Total-1]].Name
 	}
 	if has(fields, "background") {
 		r := dice.Roll("Предыстория", 1, 20)
 		logs = append(logs, r)
-		c.Background = sd.Backgrounds[r.Total-1]
+		c.Background = sd.Backgrounds[r.Total-1].Name
 	}
 	if has(fields, "deity") {
-		c.Deity = dice.Pick(sd.Deities)
+		c.Deity = dice.Pick(sd.Deities).Name
 	}
 	anc := ancestrySDByName(c.Ancestry)
 	cl := classSDByName(c.Class)

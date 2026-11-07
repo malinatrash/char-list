@@ -10,18 +10,20 @@
     <button class="btn ghost small" type="button" id="btn-clear"><svg class="ico" aria-hidden="true"><use href="#i-clear"/></svg> Очистить</button>
   </div>
 </div>
+<ol class="steps"><li data-n="1">Кто ты</li><li data-n="2">Характеристики</li><li data-n="3">Хиты и таланты</li><li data-n="4">Снаряжение</li><li data-n="5">Печать</li></ol>
 <form id="sheet" class="layout" autocomplete="off">
 <div>
   <section class="panel">
-    <h2>Кто ты</h2>
+    <h2>1. Кто ты</h2>
+    <p class="lead">В Shadowdark персонажа принято <b>бросать</b>, а не собирать: жми «Всё случайно», это по книге. Любое поле можно выбрать из списка или вписать своё, описание появится под полем.</p>
     <div class="field"><div><label>Имя</label><input type="text" data-field="name"></div><button class="rnd" type="button" data-rnd="name" data-title="Имя"><svg class="ico" aria-hidden="true"><use href="#i-dice"/></svg></button></div>
     <div class="row">
-      <div class="field"><div><label>Происхождение</label><input type="text" data-field="ancestry" list="dl-anc" placeholder="выбери или впиши своё"><datalist id="dl-anc">{{range .Data.ancestries}}<option value="{{.Name}}"></option>{{end}}</datalist></div><button class="rnd" type="button" data-rnd="ancestry,name,talents" data-title="Происхождение, к12"><svg class="ico" aria-hidden="true"><use href="#i-dice"/></svg></button></div>
-      <div class="field"><div><label>Класс</label><input type="text" data-field="class" list="dl-class" placeholder="выбери или впиши свой"><datalist id="dl-class">{{range .Data.classes}}<option value="{{.Name}}"></option>{{end}}</datalist></div><button class="rnd" type="button" data-rnd="class,title,talents,hp,gear" data-title="Класс, к4"><svg class="ico" aria-hidden="true"><use href="#i-dice"/></svg></button></div>
-      <div class="field"><div><label>Мировоззрение</label><select data-field="alignment"><option value="">—</option>{{range .Data.alignments}}<option>{{.}}</option>{{end}}</select></div><button class="rnd" type="button" data-rnd="alignment,title" data-title="Мировоззрение, к6"><svg class="ico" aria-hidden="true"><use href="#i-dice"/></svg></button></div>
-      <div class="field"><div><label>Титул</label><input type="text" data-field="title" placeholder="по классу и мировоззрению"></div><button class="rnd" type="button" data-rnd="title"><svg class="ico" aria-hidden="true"><use href="#i-dice"/></svg></button></div>
-      <div class="field"><div><label>Предыстория</label><input type="text" data-field="background" list="dl-bg" placeholder="выбери или впиши свою"><datalist id="dl-bg">{{range .Data.backgrounds}}<option value="{{.}}"></option>{{end}}</datalist></div><button class="rnd" type="button" data-rnd="background" data-title="Предыстория, к20"><svg class="ico" aria-hidden="true"><use href="#i-dice"/></svg></button></div>
-      <div class="field"><div><label>Божество</label><select data-field="deity"><option value="">—</option>{{range .Data.deities}}<option>{{.}}</option>{{end}}</select></div><button class="rnd" type="button" data-rnd="deity"><svg class="ico" aria-hidden="true"><use href="#i-dice"/></svg></button></div>
+      <div class="field"><div><label>Происхождение</label><div class="pick" data-pick="ancestry"><input type="text" class="pick-input" data-field="ancestry" placeholder="Выбери или впиши своё"><button type="button" class="pick-toggle" aria-label="Открыть список">▾</button><div class="pick-desc"></div></div></div><button class="rnd" type="button" data-rnd="ancestry,name,talents" data-title="Происхождение, к12"><svg class="ico" aria-hidden="true"><use href="#i-dice"/></svg></button></div>
+      <div class="field"><div><label>Класс</label><div class="pick" data-pick="class"><input type="text" class="pick-input" data-field="class" placeholder="Выбери или впиши свой"><button type="button" class="pick-toggle" aria-label="Открыть список">▾</button><div class="pick-desc"></div></div></div><button class="rnd" type="button" data-rnd="class,title,talents,hp,gear" data-title="Класс, к4"><svg class="ico" aria-hidden="true"><use href="#i-dice"/></svg></button></div>
+      <div class="field"><div><label>Мировоззрение</label><div class="pick" data-pick="alignment"><input type="text" class="pick-input" data-field="alignment" placeholder="Законный, нейтральный, хаотичный"><button type="button" class="pick-toggle" aria-label="Открыть список">▾</button><div class="pick-desc"></div></div></div><button class="rnd" type="button" data-rnd="alignment,title" data-title="Мировоззрение, к6"><svg class="ico" aria-hidden="true"><use href="#i-dice"/></svg></button></div>
+      <div class="field"><div><label>Титул</label><input type="text" data-field="title" placeholder="Сам подставится по классу и мировоззрению"></div><button class="rnd" type="button" data-rnd="title"><svg class="ico" aria-hidden="true"><use href="#i-dice"/></svg></button></div>
+      <div class="field"><div><label>Предыстория</label><div class="pick" data-pick="background"><input type="text" class="pick-input" data-field="background" placeholder="Кем был до подземелий"><button type="button" class="pick-toggle" aria-label="Открыть список">▾</button><div class="pick-desc"></div></div></div><button class="rnd" type="button" data-rnd="background" data-title="Предыстория, к20"><svg class="ico" aria-hidden="true"><use href="#i-dice"/></svg></button></div>
+      <div class="field"><div><label>Божество</label><div class="pick" data-pick="deity"><input type="text" class="pick-input" data-field="deity" placeholder="Кому молишься, если молишься"><button type="button" class="pick-toggle" aria-label="Открыть список">▾</button><div class="pick-desc"></div></div></div><button class="rnd" type="button" data-rnd="deity"><svg class="ico" aria-hidden="true"><use href="#i-dice"/></svg></button></div>
       <div class="row">
         <div class="field"><div><label>Уровень</label><input type="number" min="1" max="10" value="1" data-field="level" data-keep="1"></div><span></span></div>
         <div class="field"><div><label>Опыт</label><input type="number" min="0" value="0" data-field="xp" data-keep="1"></div><span></span></div>
@@ -30,22 +32,24 @@
   </section>
 
   <section class="panel">
-    <h2>Характеристики <span class="toolbar"><button class="btn small" type="button" data-rnd="scores" data-title="3к6 по порядку"><svg class="ico" aria-hidden="true"><use href="#i-dice"/></svg> 3к6</button><button class="btn small" type="button" data-rnd="scores" data-method="4d4" data-title="4к4+4 по порядку"><svg class="ico" aria-hidden="true"><use href="#i-dice"/></svg> 4к4+4</button></span></h2>
-    <p class="hint">По порядку: Сила, Ловкость, Телосложение, Интеллект, Мудрость, Харизма. 3к6 по книге (нет ни одной 14+ — перебрасываем всё) или мягкий вариант 4к4+4 (от 8 до 20).</p>
+    <h2>2. Характеристики <span class="toolbar"><button class="btn small" type="button" data-rnd="scores" data-title="3к6 по порядку"><svg class="ico" aria-hidden="true"><use href="#i-dice"/></svg> 3к6</button><button class="btn small" type="button" data-rnd="scores" data-method="4d4" data-title="4к4+4 по порядку"><svg class="ico" aria-hidden="true"><use href="#i-dice"/></svg> 4к4+4</button></span></h2>
+    <p class="lead">Бросаются по порядку, без перестановок: Сила, Ловкость, Телосложение, Интеллект, Мудрость, Харизма. <b>3к6</b> по книге (нет ни одной 14+, перебрасываем всё), <b>4к4+4</b> мягче: от 8 до 20. В кружке модификатор, он прибавляется к броскам. Нажми на название, чтобы узнать, за что отвечает характеристика.</p>
     <div class="abilities">
       {{range .Data.abilities}}
-      <div class="ab">
-        <div class="nm">{{index $.Data.abilityRu .}}</div>
+      <div class="ab" data-ab="{{.}}">
+        <div class="nm" data-help="{{.}}">{{index $.Data.abilityRu .}}</div>
         <input type="number" min="1" max="20" data-field="score" data-ab="{{.}}" inputmode="numeric">
         <div class="bonus"></div>
         <div class="mod" id="mod-{{.}}">+0</div>
       </div>
       {{end}}
     </div>
+    <p class="ab-help" id="ab-help"></p>
   </section>
 
   <section class="panel">
-    <h2>Хиты, таланты, заклинания</h2>
+    <h2>3. Хиты, таланты, заклинания</h2>
+    <p class="lead">Хиты: кость класса плюс модификатор Телосложения, минимум 1. Талант выпадает по 2к6 из таблицы класса, человек получает два. Заклинатели получают стартовые заклинания здесь же.</p>
     <div class="row">
       <div class="field"><div><label>Хиты</label><input type="number" min="1" data-field="hp" inputmode="numeric"></div><button class="rnd" type="button" data-rnd="hp" data-title="Кость хитов класса + Тел"><svg class="ico" aria-hidden="true"><use href="#i-dice"/></svg></button></div>
     </div>
@@ -54,18 +58,20 @@
   </section>
 
   <section class="panel">
-    <h2>Снаряжение</h2>
+    <h2>4. Снаряжение</h2>
+    <p class="lead">Стартовое золото 2к6×5, на него кубик покупает оружие и доспех по классу, потом к4 случайных предмета. По одному предмету на строку. Слотов для переноски столько, сколько Силы, но не меньше 10.</p>
     <div class="field"><div><label>Предметы (по строке на предмет, до 20)</label><textarea data-field="gear" rows="7"></textarea></div><button class="rnd" type="button" data-rnd="gear" data-title="Золото 2к6×5, снаряжение к4 раз по к12"><svg class="ico" aria-hidden="true"><use href="#i-dice"/></svg></button></div>
     <div class="abilities" style="grid-template-columns:repeat(3,1fr)">
-      <div class="ab"><div class="nm">Золото</div><input type="number" min="0" data-field="gp" inputmode="numeric"></div>
-      <div class="ab"><div class="nm">Серебро</div><input type="number" min="0" data-field="sp" inputmode="numeric"></div>
-      <div class="ab"><div class="nm">Медь</div><input type="number" min="0" data-field="cp" inputmode="numeric"></div>
+      <div class="ab"><div class="nm" style="text-decoration:none;cursor:default">Золото</div><input type="number" min="0" data-field="gp" inputmode="numeric"></div>
+      <div class="ab"><div class="nm" style="text-decoration:none;cursor:default">Серебро</div><input type="number" min="0" data-field="sp" inputmode="numeric"></div>
+      <div class="ab"><div class="nm" style="text-decoration:none;cursor:default">Медь</div><input type="number" min="0" data-field="cp" inputmode="numeric"></div>
     </div>
   </section>
 </div>
 <aside class="aside">
   <section class="panel">
     <h2>Итог</h2>
+    <p class="hint">Считается само по выбранному. Эти числа лягут на лист.</p>
     <div class="stat-grid">
       <div class="stat"><div class="v" id="d-ac">10</div><div class="l">КД</div></div>
       <div class="stat"><div class="v" id="d-slots">10</div><div class="l">Слоты</div></div>
@@ -89,12 +95,21 @@ document.body.dataset.ed = "shadowdark";
 (() => {
   const $ = id => document.getElementById(id);
   const sgn = n => (n >= 0 ? '+' : '') + n;
+  Picker.init('ancestry', DATA.ancestries, 'Черту происхождения впиши в таланты руками.');
+  Picker.init('class', DATA.classes, 'Хиты посчитаем как к6, набор снаряжения и таланты класса впиши руками.');
+  Picker.init('alignment', DATA.alignments, 'Титул по нему не подберём, впиши сам.');
+  Picker.init('background', DATA.backgrounds, 'Так и запишем.');
+  Picker.init('deity', DATA.deities, 'Так и запишем.');
   App.hooks.renderDerived = (d, c) => {
     for (const a of DATA.abilities) $('mod-' + a).textContent = sgn(d.mods[a]);
     $('d-ac').textContent = d.ac; $('d-slots').textContent = d.slots; $('d-xp').textContent = `${c.xp || 0} / ${d.xpNext}`;
     $('d-armor').textContent = d.acNote; $('d-hd').textContent = d.hitDie || '—'; $('d-title').textContent = c.title || d.title || '—';
     $('d-attacks').innerHTML = (d.attacks || []).map(a => `<div class="att"><b>${a.name}</b> — атака ${sgn(a.bonus)}, урон ${a.damage}</div>`).join('') || '<div class="hint">Впиши оружие в снаряжение</div>';
   };
+  document.querySelectorAll('.ab .nm[data-help]').forEach(el => el.addEventListener('click', () => {
+    document.querySelectorAll('.ab').forEach(a => a.classList.toggle('sel', a.dataset.ab === el.dataset.help));
+    $('ab-help').textContent = DATA.abilityDesc[el.dataset.help] || '';
+  }));
   App.init();
 })();
 </script>

@@ -10,16 +10,18 @@
     <button class="btn ghost small" type="button" id="btn-clear"><svg class="ico" aria-hidden="true"><use href="#i-clear"/></svg> Очистить</button>
   </div>
 </div>
+<ol class="steps"><li data-n="1">Кто ты</li><li data-n="2">Характеристики</li><li data-n="3">Навыки</li><li data-n="4">Личность</li><li data-n="5">Снаряжение</li><li data-n="6">Печать</li></ol>
 <form id="sheet" class="layout" autocomplete="off">
 <div>
   <section class="panel">
-    <h2>Кто ты</h2>
+    <h2>1. Кто ты</h2>
+    <p class="lead">Первый раз? Жми <b>«Всё случайно»</b> и поправь, что не нравится. Любое поле можно открыть списком, а можно вписать своё: описание появится прямо под полем.</p>
     <div class="field"><div><label>Имя персонажа</label><input type="text" data-field="name"></div><button class="rnd" type="button" data-rnd="name" data-title="Имя"><svg class="ico" aria-hidden="true"><use href="#i-dice"/></svg></button></div>
     <div class="row">
-      <div class="field"><div><label>Раса</label><input type="text" data-field="race" id="race" list="dl-race" placeholder="выбери или впиши свою"><datalist id="dl-race">{{range .Data.races}}<option value="{{.Name}}"></option>{{end}}</datalist></div><button class="rnd" type="button" data-rnd="race,name,languages,features" data-title="Раса"><svg class="ico" aria-hidden="true"><use href="#i-dice"/></svg></button></div>
-      <div class="field"><div><label>Класс</label><input type="text" data-field="class" id="class" list="dl-class" placeholder="выбери или впиши свой"><datalist id="dl-class">{{range .Data.classes}}<option value="{{.Name}}"></option>{{end}}</datalist></div><button class="rnd" type="button" data-rnd="class,skills,equipment,features,spells" data-title="Класс"><svg class="ico" aria-hidden="true"><use href="#i-dice"/></svg></button></div>
-      <div class="field"><div><label>Предыстория</label><input type="text" data-field="background" list="dl-bg" placeholder="выбери или впиши свою"><datalist id="dl-bg">{{range .Data.backgrounds}}<option value="{{.Name}}"></option>{{end}}</datalist></div><button class="rnd" type="button" data-rnd="background,skills,equipment,languages,features" data-title="Предыстория"><svg class="ico" aria-hidden="true"><use href="#i-dice"/></svg></button></div>
-      <div class="field"><div><label>Мировоззрение</label><select data-field="alignment"><option value="">—</option>{{range .Data.alignments}}<option>{{.}}</option>{{end}}</select></div><button class="rnd" type="button" data-rnd="alignment" data-title="Мировоззрение"><svg class="ico" aria-hidden="true"><use href="#i-dice"/></svg></button></div>
+      <div class="field"><div><label>Раса</label><div class="pick" data-pick="race"><input type="text" class="pick-input" data-field="race" id="race" placeholder="Выбери или впиши свою"><button type="button" class="pick-toggle" aria-label="Открыть список">▾</button><div class="pick-desc"></div></div></div><button class="rnd" type="button" data-rnd="race,name,languages,features" data-title="Раса"><svg class="ico" aria-hidden="true"><use href="#i-dice"/></svg></button></div>
+      <div class="field"><div><label>Класс</label><div class="pick" data-pick="class"><input type="text" class="pick-input" data-field="class" id="class" placeholder="Выбери или впиши свой"><button type="button" class="pick-toggle" aria-label="Открыть список">▾</button><div class="pick-desc"></div></div></div><button class="rnd" type="button" data-rnd="class,skills,equipment,features,spells" data-title="Класс"><svg class="ico" aria-hidden="true"><use href="#i-dice"/></svg></button></div>
+      <div class="field"><div><label>Предыстория</label><div class="pick" data-pick="background"><input type="text" class="pick-input" data-field="background" placeholder="Выбери или впиши свою"><button type="button" class="pick-toggle" aria-label="Открыть список">▾</button><div class="pick-desc"></div></div></div><button class="rnd" type="button" data-rnd="background,skills,equipment,languages,features" data-title="Предыстория"><svg class="ico" aria-hidden="true"><use href="#i-dice"/></svg></button></div>
+      <div class="field"><div><label>Мировоззрение</label><div class="pick" data-pick="alignment"><input type="text" class="pick-input" data-field="alignment" placeholder="Как персонаж смотрит на мир"><button type="button" class="pick-toggle" aria-label="Открыть список">▾</button><div class="pick-desc"></div></div></div><button class="rnd" type="button" data-rnd="alignment" data-title="Мировоззрение"><svg class="ico" aria-hidden="true"><use href="#i-dice"/></svg></button></div>
       <div class="field"><div><label>Имя игрока</label><input type="text" data-field="player"></div><span></span></div>
       <div class="row">
         <div class="field"><div><label>Уровень</label><input type="number" min="1" max="20" value="1" data-field="level" data-keep="1"></div><span></span></div>
@@ -29,41 +31,45 @@
   </section>
 
   <section class="panel">
-    <h2>Характеристики <button class="btn small" type="button" data-rnd="scores" data-title="4к6, худший куб прочь"><svg class="ico" aria-hidden="true"><use href="#i-dice"/></svg> Бросить 4к6 ×6</button></h2>
-    <p class="hint">Бросок 4к6 шесть раз, худший куб отбрасывается. Значения можно вписать и руками — например, стандартный набор 15, 14, 13, 12, 10, 8.</p>
+    <h2>2. Характеристики <button class="btn small" type="button" data-rnd="scores" data-title="4к6, худший куб прочь"><svg class="ico" aria-hidden="true"><use href="#i-dice"/></svg> Бросить 4к6 ×6</button></h2>
+    <p class="lead">Шесть чисел от 3 до 18, обычно 8–15. Чем выше, тем лучше: в кружке модификатор, его прибавляют к броскам. По правилам: 4к6 шесть раз, худший куб отбрасывается. Можно вписать руками, например стандартный набор 15, 14, 13, 12, 10, 8. Нажми на название характеристики, чтобы узнать, за что она отвечает.</p>
     <div class="pool" id="pool"></div>
     <div class="abilities">
       {{range .Data.abilities}}
       <div class="ab" data-ab="{{.}}">
-        <div class="nm">{{index $.Data.abilityRu .}}</div>
+        <div class="nm" data-help="{{.}}">{{index $.Data.abilityRu .}}</div>
         <input type="number" min="1" max="30" data-field="score" data-ab="{{.}}" inputmode="numeric">
         <div class="bonus" id="bonus-{{.}}"></div>
         <div class="mod" id="mod-{{.}}">+0</div>
       </div>
       {{end}}
     </div>
+    <p class="ab-help" id="ab-help"></p>
   </section>
 
   <section class="panel">
-    <h2>Навыки <button class="btn small" type="button" data-rnd="skills" data-title="Навыки"><svg class="ico" aria-hidden="true"><use href="#i-dice"/></svg> Выбрать за меня</button></h2>
-    <p class="hint" id="skill-hint">Выбери класс — подсветятся доступные навыки.</p>
-    <div class="skills">
+    <h2>3. Навыки <button class="btn small" type="button" data-rnd="skills" data-title="Навыки"><svg class="ico" aria-hidden="true"><use href="#i-dice"/></svg> Выбрать за меня</button></h2>
+    <p class="lead" id="skill-hint">Выбери класс, и подсветятся навыки, из которых можно выбирать.</p>
+    <p class="hint"><button type="button" class="linkish" id="skills-desc-toggle">Что значит каждый навык</button></p>
+    <div class="skills" id="skills">
       {{range .Data.skills}}
-      <label class="skill" data-skill="{{.Key}}"><input type="checkbox" data-field="skills" value="{{.Key}}"> {{.Name}} <span class="ab-tag">({{index $.Data.abilityRu .Ability}})</span><span class="b" id="sk-{{.Key}}">+0</span></label>
+      <label class="skill" data-skill="{{.Key}}"><input type="checkbox" data-field="skills" value="{{.Key}}"> {{.Name}} <span class="ab-tag">({{index $.Data.abilityRu .Ability}})</span><span class="b" id="sk-{{.Key}}">+0</span><span class="sd">{{.Desc}}</span></label>
       {{end}}
     </div>
   </section>
 
   <section class="panel">
-    <h2>Личность</h2>
-    <div class="field"><div><label>Черты характера</label><textarea data-field="traits" rows="2"></textarea></div><button class="rnd" type="button" data-rnd="traits"><svg class="ico" aria-hidden="true"><use href="#i-dice"/></svg></button></div>
-    <div class="field"><div><label>Идеалы</label><textarea data-field="ideals" rows="2"></textarea></div><button class="rnd" type="button" data-rnd="ideals"><svg class="ico" aria-hidden="true"><use href="#i-dice"/></svg></button></div>
-    <div class="field"><div><label>Привязанности</label><textarea data-field="bonds" rows="2"></textarea></div><button class="rnd" type="button" data-rnd="bonds"><svg class="ico" aria-hidden="true"><use href="#i-dice"/></svg></button></div>
-    <div class="field"><div><label>Слабости</label><textarea data-field="flaws" rows="2"></textarea></div><button class="rnd" type="button" data-rnd="flaws"><svg class="ico" aria-hidden="true"><use href="#i-dice"/></svg></button></div>
+    <h2>4. Личность</h2>
+    <p class="lead">Это не для цифр, а для игры: пара фраз о том, какой ты. Кубик подберёт заготовку, её можно переписать под себя.</p>
+    <div class="field"><div><label>Черты характера: как ты себя ведёшь</label><textarea data-field="traits" rows="2"></textarea></div><button class="rnd" type="button" data-rnd="traits"><svg class="ico" aria-hidden="true"><use href="#i-dice"/></svg></button></div>
+    <div class="field"><div><label>Идеалы: во что веришь</label><textarea data-field="ideals" rows="2"></textarea></div><button class="rnd" type="button" data-rnd="ideals"><svg class="ico" aria-hidden="true"><use href="#i-dice"/></svg></button></div>
+    <div class="field"><div><label>Привязанности: кто или что тебе дорого</label><textarea data-field="bonds" rows="2"></textarea></div><button class="rnd" type="button" data-rnd="bonds"><svg class="ico" aria-hidden="true"><use href="#i-dice"/></svg></button></div>
+    <div class="field"><div><label>Слабости: что тебя подводит</label><textarea data-field="flaws" rows="2"></textarea></div><button class="rnd" type="button" data-rnd="flaws"><svg class="ico" aria-hidden="true"><use href="#i-dice"/></svg></button></div>
   </section>
 
   <section class="panel">
-    <h2>Снаряжение и особенности</h2>
+    <h2>5. Снаряжение и особенности</h2>
+    <p class="lead">Кубик у поля собирает стартовый набор по классу и предыстории. Снаряжение по одному предмету на строку, так оно ляжет на лист.</p>
     <div class="field"><div><label>Языки и владения</label><textarea data-field="languages" rows="3"></textarea></div><button class="rnd" type="button" data-rnd="languages"><svg class="ico" aria-hidden="true"><use href="#i-dice"/></svg></button></div>
     <div class="field"><div><label>Снаряжение (по строке на предмет)</label><textarea data-field="equipment" rows="5"></textarea></div><button class="rnd" type="button" data-rnd="equipment"><svg class="ico" aria-hidden="true"><use href="#i-dice"/></svg></button></div>
     <div class="field"><div><label>Умения и особенности</label><textarea data-field="features" rows="5"></textarea></div><button class="rnd" type="button" data-rnd="features"><svg class="ico" aria-hidden="true"><use href="#i-dice"/></svg></button></div>
@@ -73,6 +79,7 @@
 <aside class="aside">
   <section class="panel">
     <h2>Итог</h2>
+    <p class="hint">Считается само по выбранному. Эти числа лягут на лист.</p>
     <div class="stat-grid">
       <div class="stat"><div class="v" id="d-ac">10</div><div class="l">КД</div></div>
       <div class="stat"><div class="v" id="d-init">+0</div><div class="l">Инициатива</div></div>
@@ -101,10 +108,13 @@ document.body.dataset.ed = "dnd5e";
   const $ = id => document.getElementById(id);
   const sgn = n => (n >= 0 ? '+' : '') + n;
   const abRu = DATA.abilityRu;
-  let lastDerived = null;
+  const custom = 'Правила для него не знаем: бонусов расы не будет, класс считаем как к8 хитов без навыков. Впиши особенности руками.';
+  Picker.init('race', DATA.races, custom);
+  Picker.init('class', DATA.classes, custom);
+  Picker.init('background', DATA.backgrounds, 'Навыки и снаряжение предыстории впиши руками.');
+  Picker.init('alignment', DATA.alignments, 'Так и запишем.');
 
   App.hooks.renderDerived = (d, c) => {
-    lastDerived = d;
     for (const a of DATA.abilities) {
       $('mod-' + a).textContent = sgn(d.mods[a]);
       $('bonus-' + a).textContent = d.bonus[a] ? `раса ${sgn(d.bonus[a])} → ${d.final[a]}` : '';
@@ -119,8 +129,21 @@ document.body.dataset.ed = "dnd5e";
     const pool = d.skillPool || [];
     document.querySelectorAll('.skill').forEach(el => el.classList.toggle('pool-ok', pool.includes(el.dataset.skill)));
     const bg = DATA.backgrounds.find(b => b.name === c.background);
-    $('skill-hint').textContent = d.skillCount ? `Класс даёт ${d.skillCount} навыка из подсвеченных` + (bg ? `, предыстория «${bg.name}» — ещё ${bg.skills.map(k => DATA.skills.find(s => s.key === k).name).join(' и ')}.` : '.') : 'Выбери класс — подсветятся доступные навыки.';
+    const chosen = (c.skills || []).length;
+    const want = (d.skillCount || 0) + (bg ? bg.skills.length : 0);
+    let hint = '';
+    if (d.skillCount) hint += `Класс «${c.class}» даёт <b>${d.skillCount}</b> навыка из подсвеченных. `;
+    if (bg) hint += `Предыстория «${bg.name}» добавляет ${bg.skills.map(k => DATA.skills.find(s => s.key === k).name).join(' и ')}. `;
+    if (!d.skillCount && !bg) hint = 'Выбери класс, и подсветятся навыки, из которых можно выбирать. Галочка значит владение: к броску прибавится бонус мастерства.';
+    else hint += chosen < want ? `Отмечено ${chosen} из ${want}.` : chosen > want ? `Отмечено ${chosen}, это больше нормы ${want}, но если мастер разрешил, пусть.` : 'Всё отмечено.';
+    $('skill-hint').innerHTML = hint;
   };
+
+  document.querySelectorAll('.ab .nm').forEach(el => el.addEventListener('click', () => {
+    document.querySelectorAll('.ab').forEach(a => a.classList.toggle('sel', a.dataset.ab === el.dataset.help));
+    $('ab-help').textContent = abRu[el.dataset.help] + ': ' + (DATA.abilityDesc[el.dataset.help] || '');
+  }));
+  $('skills-desc-toggle').addEventListener('click', () => $('skills').classList.toggle('show-desc'));
 
   const origRandom = App.random;
   App.random = async (fields, title, method) => {
